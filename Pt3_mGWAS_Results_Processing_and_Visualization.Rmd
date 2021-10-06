@@ -1,5 +1,5 @@
 ---
-title: "Integrating genomics and multi-platform metabolomics enables metabolite QTL detection in breeding-relevant apple germplasm"
+title: "Integrating genomics and multiplatform metabolomics enables metabolite QTL detection in breeding-relevant apple germplasm"
 author: "Emma Bilbrey"
 date: "2/26/2021"
 output:
@@ -8,12 +8,30 @@ output:
     toc_depth: 4
 ---
 
-**Publication Authors:**
-Emma A Bilbrey, Kathryn Wiliamson, Emmanuel Hatzakis, Diane Doud Miller, Jonathan Fresnedo-Ramirez, Jessica L. Cooperstone
+**Publication Details:** Title: Integrating genomics and multiplatform metabolomics enables metabolite QTL detection in breeding-relevant apple germplasm
+
+Authors: Emma A. Bilbrey1, Kathryn Williamson2, Emmanuel Hatzakis2, Diane Doud Miller3, Jonathan Fresnedo-Ramírez3, Jessica L. Cooperstone1,2,\*
+
+1 Department of Horticulture and Crop Science, The Ohio State University, Columbus, OH, USA, 43210
+
+2 Department of Food Science and Technology, The Ohio State University, Columbus, OH, USA, 43210
+
+3 Department of Horticulture and Crop Science, The Ohio State University, Wooster, OH, USA, 44691
+
+\*Corresponding Author: 2001 Fyffe Court, Columbus, OH 43210, USA; Tel: +614 2922843; Email: [cooperstone.1\@osu.edu](mailto:cooperstone.1@osu.edu)
+
+Journal: New Phytologist 
+
+DOI: https://doi.org/10.1111/nph.17693
+
+- Apple (Malus × domestica) has commercial and nutritional value, but breeding constraints of tree crops limit varietal improvement. Marker-assisted selection minimises these drawbacks, but breeders lack applications for targeting fruit phytochemicals. To understand genotype–phytochemical associations in apples, we have developed a high-throughput integration strategy for genomic and multiplatform metabolomics data.
+- Here, 124 apple genotypes, including members of three pedigree-connected breeding families alongside diverse cultivars and wild selections, were genotyped and phenotyped. Metabolite genome-wide association studies (mGWAS) were conducted with c. 10 000 single nucleotide polymorphisms and phenotypic data acquired via LC–MS and 1H NMR untargeted metabolomics. Putative metabolite quantitative trait loci (mQTL) were then validated via pedigree-based analyses (PBA).
+- Using our developed method, 519, 726 and 177 putative mQTL were detected in LC–MS positive and negative ionisation modes, and NMR, respectively. mQTL were indicated on each chromosome, with hotspots on linkage groups 16 and 17. A chlorogenic acid mQTL was discovered on chromosome 17 via mGWAS and validated with a two-step PBA, enabling discovery of novel candidate gene–metabolite relationships.
+- Complementary data from three metabolomics approaches and dual genomics analyses increased confidence in validity of compound annotation and mQTL detection. Our platform demonstrates the utility of multiomic integration to advance data-driven, phytochemical-based plant breeding.
 
 To understand genotype-phytochemical associations in apple fruit, we have developed a high-throughput integration strategy for genomic and multi-platform metabolomics data.
 
-**Context**: 124 apple genotypes, including members of three pedigree-connected breeding families alongside diverse cultivars and wild selections, were genotyped and phenotyped. Metabolite genome-wide association studies (mGWAS) were conducted with ~10,000 single nucleotide polymorphisms alongside phenotypic data acquired via liquid chromatography mass spectrometry (LC-MS) and 1H nuclear magnetic resonance (NMR) untargeted metabolomics. Putative metabolite quantitative trait loci (mQTL) were then validated via pedigree-based analyses (PBA).
+**Context**: 124 apple genotypes, including members of three pedigree-connected breeding families alongside diverse cultivars and wild selections, were genotyped and phenotyped. Metabolite genome-wide association studies (mGWAS) were conducted with \~10,000 single nucleotide polymorphisms alongside phenotypic data acquired via liquid chromatography mass spectrometry (LC-MS) and 1H nuclear magnetic resonance (NMR) untargeted metabolomics. Putative metabolite quantitative trait loci (mQTL) were then validated via pedigree-based analyses (PBA).
 
 Code in this markdown represents the last third of the work for our publication. This third is dedicated to mGWAS and PBA results processing and visualization. Data inputs can be found in the supplemental material for the publication.
 
@@ -120,8 +138,11 @@ Resulting from the GWAS run in the OSC, we have a data matrix of -log10(pvalues)
 ##### Read mGWAS Result
 Columns are metabolomic features and rows are SNPs. The first 3 columns are metadata concerning the SNPs: Index (the number assigned to each SNP), Linkage_Group (chromosome that the SNP is from), and Genetic_Distance (the distance in cM assigned from the iGLmap)
 
+Table S12 Output from metabolite genome-wide association studies (mGWAS) in the form of -log10(P) values for each single nucleotide polymorphism (SNP)-metabolomic feature combination for the analysis of liquid chromatography-mass spectrometry (LC-MS) (+) data of the Diverse population set.  NA denotes missing data.
+
 ```{r message=FALSE}
-mGWASResultPosDiv<- read_csv("TableS13_LCMS_Pos_Div_mGWASresults.csv",
+Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
+mGWASResultPosDiv<- read_csv("nph17693-sup-0003-tables12.csv",
                              col_names=TRUE) # be patient, this takes a minute
 dim(mGWASResultPosDiv)
 head_short(mGWASResultPosDiv)
@@ -158,8 +179,10 @@ Resulting from the GWAS run in the OSC, we have a data matrix of -log10(pvalues)
 ##### Read mGWAS Result
 Columns are metabolomic features and rows are SNPs. The first 3 columns are metadata concerning the SNPs: Index (the number assigned to each SNP), Linkage_Group (chromosome that the SNP is from), and Genetic_Distance (the distance in cM assigned from the iGLmap)
 
+Table S13 Output from metabolite genome-wide association studies (mGWAS) in the form of -log10(P) values for each single nucleotide polymorphism (SNP)-metabolomic feature combination for the analysis of liquid chromatography-mass spectrometry (LC-MS) (+) data of the Pedigree population set.  NA denotes missing data. 
+
 ```{r message=FALSE}
-mGWASResultPosPed <- read_csv("TableS14_LCMS_Pos_Ped_mGWASresults.csv",
+mGWASResultPosPed <- read_csv("nph17693-sup-0004-tables13.csv",
                               col_names=TRUE) # this takes a minute
 dim(mGWASResultPosPed)
 head_short(mGWASResultPosPed)
@@ -201,8 +224,10 @@ Resulting from the GWAS run in the OSC, we have a data matrix of -log10(pvalues)
 ##### Read mGWAS Result
 Columns are metabolomic features and rows are SNPs. The first 3 columns are metadata concerning the SNPs: Index (the number assigned to each SNP), Linkage_Group (chromosome that the SNP is from), and Genetic_Distance (the distance in cM assigned from the iGLmap)
 
+Table S14 Output from metabolite genome-wide association studies (mGWAS) in the form of -log10(P) values for each single nucleotide polymorphism (SNP)-metabolomic feature combination for the analysis of liquid chromatography-mass spectrometry (LC-MS) (+) data of the Progeny population set. NA denotes missing data. 
+
 ```{r message=FALSE}
-mGWASResultPosProg <- read_csv("TableS15_LCMS_Pos_Prog_mGWASresults.csv",
+mGWASResultPosProg <- read_csv("nph17693-sup-0005-tables14.csv",
                                col_names=TRUE) # this takes a minute
 dim(mGWASResultPosProg)
 head_short(mGWASResultPosProg)
@@ -239,8 +264,10 @@ Resulting from the GWAS run in the OSC, we have a data matrix of -log10(pvalues)
 ##### Read mGWAS Results
 Columns are metabolomic features and rows are SNPs. The first 3 columns are metadata concerning the SNPs.
 
+Table S15 Output from metabolite genome-wide association studies (mGWAS) in the form of -log10(P) values for each single nucleotide polymorphism (SNP)-metabolomic feature combination for the analysis of liquid chromatography-mass spectrometry (LC-MS) (-) data of the Diverse population set. NA denotes missing data. 
+
 ```{r message=FALSE}
-mGWASResultNegDiv<- read_csv("TableS16_LCMS_Neg_Div_mGWASresults.csv",
+mGWASResultNegDiv<- read_csv("nph17693-sup-0006-tables15.csv",
                              col_names=TRUE) # this takes a minute
 dim(mGWASResultNegDiv)
 head_short(mGWASResultNegDiv)
@@ -275,8 +302,10 @@ Resulting from the GWAS run in the OSC, we have a data matrix of -log10(pvalues)
 ##### Read mGWAS Result
 Columns are metabolomic features and rows are SNPs. The first 3 columns are metadata concerning the SNPs.
 
+Table S16 Output from metabolite genome-wide association studies (mGWAS) in the form of -log10(P) values for each single nucleotide polymorphism (SNP)-metabolomic feature combination for the analysis of liquid chromatography-mass spectrometry (LC-MS) (-) data of the Pedigree population set. NA denotes missing data.
+
 ```{r message=FALSE}
-mGWASResultNegPed<- read_csv("TableS17_LCMS_Neg_Ped_mGWASresults.csv",
+mGWASResultNegPed<- read_csv("nph17693-sup-0007-tables16.csv",
                              col_names=TRUE)
 dim(mGWASResultNegPed)
 head_short(mGWASResultNegPed)
@@ -311,8 +340,10 @@ Resulting from the GWAS run in the OSC, we have a data matrix of -log10(pvalues)
 ##### Read mGWAS Result
 Columns are metabolomic features and rows are SNPs. The first 3 columns are metadata concerning the SNPs.
 
+Table S17 Output from metabolite genome-wide association studies (mGWAS) in the form of -log10(P) values for each single nucleotide polymorphism (SNP)-metabolomic feature combination for the analysis of liquid chromatography-mass spectrometry (LC-MS) (-) data of the Progeny population set. NA denotes missing data.
+
 ```{r message=FALSE}
-mGWASResultNegProg<- read_csv("TableS18_LCMS_Neg_Prog_mGWASresults.csv",
+mGWASResultNegProg<- read_csv("nph17693-sup-0008-tables17.csv",
                               col_names=TRUE) # this takes a minute
 dim(mGWASResultNegProg)
 head_short(mGWASResultNegProg)
@@ -348,8 +379,10 @@ Resulting from the GWAS run in the OSC, we have a data matrix of -log10(pvalues)
 ##### Read mGWAS Result
 Columns are metabolomic features (bins) and rows are SNPs. The first 3 columns are metadata concerning the SNPs.
 
+Table S18 Output from metabolite genome-wide association studies (mGWAS) in the form of -log10(P) values for each single nucleotide polymorphism (SNP)-metabolomic feature combination for the analysis of nuclear magnetic resonance (NMR) spectroscopy data of the Diverse population set. NA denotes missing data.
+
 ```{r message=FALSE}
-mGWASResultNMRDiv<- read_csv("TableS19_LCMS_NMR_Div_mGWASresults.csv",
+mGWASResultNMRDiv<- read_csv("nph17693-sup-0009-tables18.csv",
                              col_names=TRUE) # this takes a minute
 dim(mGWASResultNMRDiv)
 head_short(mGWASResultNMRDiv)
@@ -384,8 +417,10 @@ Resulting from the GWAS run in the OSC, we have a data matrix of -log10(pvalues)
 ##### Read mGWAS Result
 Columns are metabolomic features and rows are SNPs. The first 3 columns are metadata concerning the SNPs.
 
+Table S19 Output from metabolite genome-wide association studies (mGWAS) in the form of -log10(P) values for each single nucleotide polymorphism (SNP)-metabolomic feature combination for the analysis of nuclear magnetic resonance (NMR) spectroscopy data of the Pedigree population set. NA denotes missing data. 
+
 ```{r message=FALSE}
-mGWASResultNMRPed<- read_csv("TableS20_LCMS_NMR_Ped_mGWASresults.csv",
+mGWASResultNMRPed<- read_csv("nph17693-sup-0010-tables19.csv",
                              col_names=TRUE) # this takes a minute
 dim(mGWASResultNMRPed)
 head_short(mGWASResultNMRPed)
@@ -420,8 +455,10 @@ Resulting from the GWAS run in the OSC, we have a data matrix of -log10(pvalues)
 ##### Read mGWAS Result
 Columns are metabolomic features and rows are SNPs. The first 3 columns are metadata concerning the SNPs.
 
+Table S20 Output from metabolite genome-wide association studies (mGWAS) in the form of -log10(P) values for each single nucleotide polymorphism (SNP)-metabolomic feature combination for the analysis of NMR data of the Progeny population set. NA denotes missing data. 
+
 ```{r message=FALSE}
-mGWASResultNMRProg<- read_csv("TableS21_LCMS_NMR_Prog_mGWASresults.csv",
+mGWASResultNMRProg<- read_csv("nph17693-sup-0011-tables20.csv",
                               col_names=TRUE) # this takes a minute
 dim(mGWASResultNMRProg)
 head_short(mGWASResultNMRProg)
@@ -1119,6 +1156,49 @@ plot <- ggplot() +
 print(plot)
 }
 ```
+assoc w/ 13681
+
+```{r}
+sigsnp <- PosDivSigMetabsSubsetSNP %>% 
+  filter(Index==13681) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  filter(V1>5) %>% 
+  rownames_to_column(var="mz_rt") 
+sigsnpnometa <- sigsnp[-(1:3),] %>% 
+  separate(col=mz_rt,
+           into= c("mz","rt"),
+           sep="_") %>% 
+  separate(col=mz,
+           into=c("x","mz"),
+           sep="X") %>% 
+  select(-x)
+  
+sigsnpnometa$mz <- as.numeric(sigsnpnometa$mz)
+sigsnpnometa$rt <- as.numeric(sigsnpnometa$rt)
+
+dim(sigsnpnometa)
+head(sigsnpnometa)
+```
+
+```{r}
+plot <- sigsnpnometa %>% 
+  ggplot(aes(x=rt, y=mz)) +
+  geom_point() +
+  scale_x_continuous(name="retention time")
+plot
+  
+```
+```{r}
+plot <- sigsnpnometa %>% 
+  ggplot(aes(x=rt)) +
+  geom_histogram(binwidth = .03)
+  
+plot
+  
+```
+
+
 
 ### LCMS(-)
 

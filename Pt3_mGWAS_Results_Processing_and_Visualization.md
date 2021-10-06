@@ -1,12 +1,120 @@
-Integrating genomics and multi-platform metabolomics enables metabolite
+Integrating genomics and multiplatform metabolomics enables metabolite
 QTL detection in breeding-relevant apple germplasm
 ================
 Emma Bilbrey
 2/26/2021
 
-**Publication Authors:** Emma A Bilbrey, Kathryn Wiliamson, Emmanuel
-Hatzakis, Diane Doud Miller, Jonathan Fresnedo-Ramirez, Jessica L.
-Cooperstone
+-   [Part 3: Results Processing and
+    Visualization](#part-3-results-processing-and-visualization)
+-   [mGWAS Results Processing](#mgwas-results-processing)
+    -   [Filter for Significance](#filter-for-significance)
+        -   [LCMS(+)](#lcms)
+            -   [Diverse](#diverse)
+            -   [Pedigree](#pedigree)
+            -   [Progeny](#progeny)
+        -   [LCMS (-)](#lcms--)
+            -   [Diverse](#diverse-1)
+            -   [Pedigree](#pedigree-1)
+            -   [Progeny](#progeny-1)
+        -   [NMR](#nmr)
+            -   [Diverse](#diverse-2)
+            -   [Pedigree](#pedigree-2)
+            -   [Progeny](#progeny-2)
+    -   [Venn Diagrams - Sig. Results](#venn-diagrams---sig-results)
+        -   [LCMS(+)](#lcms-1)
+            -   [Extract Intersection](#extract-intersection)
+        -   [LCMS(-)](#lcms-)
+            -   [Extract Intersection](#extract-intersection-1)
+        -   [NMR](#nmr-1)
+            -   [Extract Intersection](#extract-intersection-2)
+        -   [DF for Sig Metabs Only](#df-for-sig-metabs-only)
+-   [mGWAS Results Visualizations](#mgwas-results-visualizations)
+    -   [Reattach SNP Metadata](#reattach-snp-metadata)
+    -   [mQTL per LG Bar Chart](#mqtl-per-lg-bar-chart)
+        -   [Prep Data](#prep-data)
+        -   [LCMS(+)](#lcms-2)
+        -   [LCMS(-)](#lcms--1)
+        -   [NMR](#nmr-2)
+    -   [Composite mQTL Chr Map](#composite-mqtl-chr-map)
+        -   [Filter for SNPS with Significant Assoc with at least one
+            Feature](#filter-for-snps-with-significant-assoc-with-at-least-one-feature)
+        -   [Object of SNP Metadata](#object-of-snp-metadata)
+        -   [Plotting for Chlorogenic
+            Acid](#plotting-for-chlorogenic-acid)
+    -   [Number of Metabolomic Features Significantly Associated with
+        each
+        SNP](#number-of-metabolomic-features-significantly-associated-with-each-snp)
+        -   [Prep Data](#prep-data-1)
+        -   [LCMS(+)](#lcms-3)
+        -   [LCMS(-)](#lcms--2)
+        -   [NMR](#nmr-3)
+    -   [Significant NMR Bins](#significant-nmr-bins)
+        -   [Prepare data](#prepare-data)
+        -   [Full Spectrum](#full-spectrum)
+        -   [Aromatic Region](#aromatic-region)
+        -   [Amino Acid Region](#amino-acid-region)
+    -   [Chlorogenic Acid Manhattan
+        Plots](#chlorogenic-acid-manhattan-plots)
+        -   [LCMS(+)](#lcms-4)
+        -   [LCMS (-)](#lcms---1)
+        -   [NMR](#nmr-4)
+    -   [Find Top SNPs on Chr](#find-top-snps-on-chr)
+        -   [Chlorogenic Acid on Chr 17](#chlorogenic-acid-on-chr-17)
+-   [PBA Results Visualization](#pba-results-visualization)
+    -   [Read in CGA Haplotype Info](#read-in-cga-haplotype-info)
+    -   [Prep Data](#prep-data-2)
+    -   [Make Plot of mQTL Genotypes](#make-plot-of-mqtl-genotypes)
+
+**Publication Details:** Title: Integrating genomics and multiplatform
+metabolomics enables metabolite QTL detection in breeding-relevant apple
+germplasm
+
+Authors: Emma A. Bilbrey1, Kathryn Williamson2, Emmanuel Hatzakis2,
+Diane Doud Miller3, Jonathan Fresnedo-Ramírez3, Jessica L.
+Cooperstone1,2,\*
+
+1 Department of Horticulture and Crop Science, The Ohio State
+University, Columbus, OH, USA, 43210
+
+2 Department of Food Science and Technology, The Ohio State University,
+Columbus, OH, USA, 43210
+
+3 Department of Horticulture and Crop Science, The Ohio State
+University, Wooster, OH, USA, 44691
+
+\*Corresponding Author: 2001 Fyffe Court, Columbus, OH 43210, USA; Tel:
++614 2922843; Email: <cooperstone.1@osu.edu>
+
+Journal: New Phytologist
+
+DOI: <https://doi.org/10.1111/nph.17693>
+
+-   Apple (Malus × domestica) has commercial and nutritional value, but
+    breeding constraints of tree crops limit varietal improvement.
+    Marker-assisted selection minimises these drawbacks, but breeders
+    lack applications for targeting fruit phytochemicals. To understand
+    genotype–phytochemical associations in apples, we have developed a
+    high-throughput integration strategy for genomic and multiplatform
+    metabolomics data.
+-   Here, 124 apple genotypes, including members of three
+    pedigree-connected breeding families alongside diverse cultivars and
+    wild selections, were genotyped and phenotyped. Metabolite
+    genome-wide association studies (mGWAS) were conducted with c. 10
+    000 single nucleotide polymorphisms and phenotypic data acquired via
+    LC–MS and 1H NMR untargeted metabolomics. Putative metabolite
+    quantitative trait loci (mQTL) were then validated via
+    pedigree-based analyses (PBA).
+-   Using our developed method, 519, 726 and 177 putative mQTL were
+    detected in LC–MS positive and negative ionisation modes, and NMR,
+    respectively. mQTL were indicated on each chromosome, with hotspots
+    on linkage groups 16 and 17. A chlorogenic acid mQTL was discovered
+    on chromosome 17 via mGWAS and validated with a two-step PBA,
+    enabling discovery of novel candidate gene–metabolite relationships.
+-   Complementary data from three metabolomics approaches and dual
+    genomics analyses increased confidence in validity of compound
+    annotation and mQTL detection. Our platform demonstrates the utility
+    of multiomic integration to advance data-driven, phytochemical-based
+    plant breeding.
 
 To understand genotype-phytochemical associations in apple fruit, we
 have developed a high-throughput integration strategy for genomic and
@@ -15,7 +123,7 @@ multi-platform metabolomics data.
 **Context**: 124 apple genotypes, including members of three
 pedigree-connected breeding families alongside diverse cultivars and
 wild selections, were genotyped and phenotyped. Metabolite genome-wide
-association studies (mGWAS) were conducted with ~10,000 single
+association studies (mGWAS) were conducted with \~10,000 single
 nucleotide polymorphisms alongside phenotypic data acquired via liquid
 chromatography mass spectrometry (LC-MS) and 1H nuclear magnetic
 resonance (NMR) untargeted metabolomics. Putative metabolite
@@ -35,14 +143,14 @@ for the publication.
 
 SNP-feature associations were filtered for significance with -log10(p)
 threshold. For LC-MS (+) and (-) data sets, a threshold of greater than
-or equal to 4 (P \< .0001) was used for the progeny results and greater
-than or equal to 5 (P \< .00001) for the pedigree and diverse results. A
-greater than or equal to 4 filter was used for each of three populations
-of NMR analyses due to the fewer comparisons relative to the LC-MS data
-sets. Values were not subjected to a multiple test correction, but
-significance thresholds displayed on all Manhattan plots constructed
-below correspond to p = .05 with a false discovery rate (FDR) correction
-for that feature.
+or equal to 4 (P &lt; .0001) was used for the progeny results and
+greater than or equal to 5 (P &lt; .00001) for the pedigree and diverse
+results. A greater than or equal to 4 filter was used for each of three
+populations of NMR analyses due to the fewer comparisons relative to the
+LC-MS data sets. Values were not subjected to a multiple test
+correction, but significance thresholds displayed on all Manhattan plots
+constructed below correspond to p = .05 with a false discovery rate
+(FDR) correction for that feature.
 
 ### LCMS(+)
 
@@ -61,8 +169,15 @@ are metadata concerning the SNPs: Index (the number assigned to each
 SNP), Linkage\_Group (chromosome that the SNP is from), and
 Genetic\_Distance (the distance in cM assigned from the iGLmap)
 
+Table S12 Output from metabolite genome-wide association studies (mGWAS)
+in the form of -log10(P) values for each single nucleotide polymorphism
+(SNP)-metabolomic feature combination for the analysis of liquid
+chromatography-mass spectrometry (LC-MS) (+) data of the Diverse
+population set. NA denotes missing data.
+
 ``` r
-mGWASResultPosDiv<- read_csv("TableS13_LCMS_Pos_Div_mGWASresults.csv",
+Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
+mGWASResultPosDiv<- read_csv("nph17693-sup-0003-tables12.csv",
                              col_names=TRUE) # be patient, this takes a minute
 dim(mGWASResultPosDiv)
 ```
@@ -73,7 +188,7 @@ dim(mGWASResultPosDiv)
 head_short(mGWASResultPosDiv)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X235.16921223973_4.… X251.16328937515_4.…
     ##   <dbl>         <dbl>            <dbl>                <dbl>                <dbl>
     ## 1     1             1            0                   0.268                0.271 
@@ -84,8 +199,7 @@ head_short(mGWASResultPosDiv)
 
 Get rid of all rows with 0s (SNPs that did not meet the MAF minimum),
 this takes a second. We are saying take only the rows from the data
-frame that have no values equal to
-0.
+frame that have no values equal to 0.
 
 ``` r
 mGWASResultPosDiv0 <- mGWASResultPosDiv[apply(mGWASResultPosDiv[4:ncol(mGWASResultPosDiv)],
@@ -100,7 +214,7 @@ dim(mGWASResultPosDiv0) # we see that 10294 SNPs were actually above the MAF min
 head_short(mGWASResultPosDiv0)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X235.16921223973_4.… X251.16328937515_4.…
     ##   <dbl>         <dbl>            <dbl>                <dbl>                <dbl>
     ## 1     1             1            0                   0.268                0.271 
@@ -112,14 +226,13 @@ head_short(mGWASResultPosDiv0)
 Some were not above the MAF minimum because we must have been filtering
 for MAF minimum of .05 with some other individuals involved.
 
-##### Filter -log(pvalue) \>= 5
+##### Filter -log(pvalue) &gt;= 5
 
 We want to see which metabolomic features have strong significant
 associations with at least one SNP. In this case, we are wanting an
 association to have a -log10(pvalue) of greater than or equal to 5 for a
 metabolomic feature to remain in the list. Column 4 is the first column
-of a metabolomic
-feature.
+of a metabolomic feature.
 
 ``` r
 mGWASResultPosDivFilt <- Filter(function(x) max(x) >= 5, # the max of the column must be >=5
@@ -133,18 +246,18 @@ dim(mGWASResultPosDivFilt) # we keep the same # of SNPs but reduce our # of meta
 head_short(mGWASResultPosDivFilt)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   X130.1591723148… X227.1278530284… X297.1961726115… X284.3315326656…
-    ##              <dbl>            <dbl>            <dbl>            <dbl>
-    ## 1            0.225          0.422             0.0402           0.658 
-    ## 2            0.116          0.00156           0.0983           0.310 
-    ## 3            0.442          0.559             0.0752           0.465 
-    ## 4            0.912          0.0611            1.86             0.0635
-    ## 5            0.221          0.880             0.188            0.285 
+    ## # A tibble: 5 × 5
+    ##   X130.159172314837_… X227.127853028416_… X297.196172611506_… X284.331532665687…
+    ##                 <dbl>               <dbl>               <dbl>              <dbl>
+    ## 1               0.225             0.422                0.0402             0.658 
+    ## 2               0.116             0.00156              0.0983             0.310 
+    ## 3               0.442             0.559                0.0752             0.465 
+    ## 4               0.912             0.0611               1.86               0.0635
+    ## 5               0.221             0.880                0.188              0.285 
     ## # … with 1 more variable: X138.055231846115_1.82607766106439 <dbl>
 
 Here, the number of columns is the number of metabolomic features with
-putative mQTL from the LCMS Pos, Diverse mGWAS –\> *1,186*.
+putative mQTL from the LCMS Pos, Diverse mGWAS –&gt; *1,186*.
 
 #### Pedigree
 
@@ -161,8 +274,14 @@ are metadata concerning the SNPs: Index (the number assigned to each
 SNP), Linkage\_Group (chromosome that the SNP is from), and
 Genetic\_Distance (the distance in cM assigned from the iGLmap)
 
+Table S13 Output from metabolite genome-wide association studies (mGWAS)
+in the form of -log10(P) values for each single nucleotide polymorphism
+(SNP)-metabolomic feature combination for the analysis of liquid
+chromatography-mass spectrometry (LC-MS) (+) data of the Pedigree
+population set. NA denotes missing data.
+
 ``` r
-mGWASResultPosPed <- read_csv("TableS14_LCMS_Pos_Ped_mGWASresults.csv",
+mGWASResultPosPed <- read_csv("nph17693-sup-0004-tables13.csv",
                               col_names=TRUE) # this takes a minute
 dim(mGWASResultPosPed)
 ```
@@ -173,7 +292,7 @@ dim(mGWASResultPosPed)
 head_short(mGWASResultPosPed)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X235.16921223973_4.… X251.16328937515_4.…
     ##   <dbl>         <dbl>            <dbl>                <dbl>                <dbl>
     ## 1     1             1            0                   0.219                0.194 
@@ -201,7 +320,7 @@ dim(mGWASResultPosPed0)
 head_short(mGWASResultPosPed0)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X235.16921223973_4.… X251.16328937515_4.…
     ##   <dbl>         <dbl>            <dbl>                <dbl>                <dbl>
     ## 1     1             1            0                   0.219                0.194 
@@ -223,7 +342,7 @@ dim(mGWASResultPosPed0)
 head_short(mGWASResultPosPed0)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X235.16921223973_4.… X251.16328937515_4.…
     ##   <dbl>         <dbl>            <dbl>                <dbl>                <dbl>
     ## 1     1             1            0                   0.219                0.194 
@@ -232,14 +351,13 @@ head_short(mGWASResultPosPed0)
     ## 4     5             1            0.004               0.442                0.374 
     ## 5     6             1            0.005               0.0465               0.169
 
-##### Filter -log(pvalue) \>= 5
+##### Filter -log(pvalue) &gt;= 5
 
 We want to see which metabolomic features have strong significant
 associations with at least one SNP. In this case, we are wanting an
 association to have a -log10(pvalue) of greater than or equal to 5 for a
 metabolomic feature to remain in the list. Column 4 is the first column
-of a metabolomic
-feature.
+of a metabolomic feature.
 
 ``` r
 mGWASResultPosPedFilt <- Filter(function(x) max(x) >= 5, # the max of the column must be >=5
@@ -253,18 +371,18 @@ dim(mGWASResultPosPedFilt) # we keep the same # of SNPs but reduce our # of meta
 head_short(mGWASResultPosPedFilt)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   X423.2357579386… X130.1591723148… X356.2841832005… X379.2348339363…
-    ##              <dbl>            <dbl>            <dbl>            <dbl>
-    ## 1           0.274            0.0497           0.0633           0.267 
-    ## 2           0.228            0.0586           0.357            0.870 
-    ## 3           0.549            0.141            0.426            0.0510
-    ## 4           0.617            0.438            0.379            1.05  
-    ## 5           0.0274           0.229            0.301            0.495 
+    ## # A tibble: 5 × 5
+    ##   X423.235757938656_… X130.159172314837_… X356.284183200572_… X379.234833936313…
+    ##                 <dbl>               <dbl>               <dbl>              <dbl>
+    ## 1              0.274               0.0497              0.0633             0.267 
+    ## 2              0.228               0.0586              0.357              0.870 
+    ## 3              0.549               0.141               0.426              0.0510
+    ## 4              0.617               0.438               0.379              1.05  
+    ## 5              0.0274              0.229               0.301              0.495 
     ## # … with 1 more variable: X227.127853028416_2.90515959383752 <dbl>
 
 Here, the number of columns is the number of metabolomic features with
-putative mQTL from the LCMS Pos, Pedigree mGWAS –\> *953*
+putative mQTL from the LCMS Pos, Pedigree mGWAS –&gt; *953*
 
 #### Progeny
 
@@ -279,11 +397,16 @@ corrected by genetic markers developed with AGHmatrix.
 Columns are metabolomic features and rows are SNPs. The first 3 columns
 are metadata concerning the SNPs: Index (the number assigned to each
 SNP), Linkage\_Group (chromosome that the SNP is from), and
-Genetic\_Distance (the distance in cM assigned from the
-iGLmap)
+Genetic\_Distance (the distance in cM assigned from the iGLmap)
+
+Table S14 Output from metabolite genome-wide association studies (mGWAS)
+in the form of -log10(P) values for each single nucleotide polymorphism
+(SNP)-metabolomic feature combination for the analysis of liquid
+chromatography-mass spectrometry (LC-MS) (+) data of the Progeny
+population set. NA denotes missing data.
 
 ``` r
-mGWASResultPosProg <- read_csv("TableS15_LCMS_Pos_Prog_mGWASresults.csv",
+mGWASResultPosProg <- read_csv("nph17693-sup-0005-tables14.csv",
                                col_names=TRUE) # this takes a minute
 dim(mGWASResultPosProg)
 ```
@@ -294,7 +417,7 @@ dim(mGWASResultPosProg)
 head_short(mGWASResultPosProg)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X235.16921223973_4.… X251.16328937515_4.…
     ##   <dbl>         <dbl>            <dbl>                <dbl>                <dbl>
     ## 1     1             1            0                   0.493                0.290 
@@ -303,8 +426,7 @@ head_short(mGWASResultPosProg)
     ## 4     5             1            0.004               0                    0     
     ## 5     6             1            0.005               0.347                0.485
 
-Get rid of all rows with 0s (SNPs that did not meet the MAF
-minimum)
+Get rid of all rows with 0s (SNPs that did not meet the MAF minimum)
 
 ``` r
 mGWASResultPosProg0 <- mGWASResultPosProg[apply(mGWASResultPosProg[4:ncol(mGWASResultPosProg)],
@@ -319,7 +441,7 @@ dim(mGWASResultPosProg0)
 head_short(mGWASResultPosProg0)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X235.16921223973_4.… X251.16328937515_4.…
     ##   <dbl>         <dbl>            <dbl>                <dbl>                <dbl>
     ## 1     1             1            0                   0.493                0.290 
@@ -328,14 +450,13 @@ head_short(mGWASResultPosProg0)
     ## 4     6             1            0.005               0.347                0.485 
     ## 5     7             1            0.006               0.652                0.994
 
-##### Filter -log(pvalue) \>= 4
+##### Filter -log(pvalue) &gt;= 4
 
 We want to see which metabolomic features have strong significant
 associations with at least one SNP. In this case, we are wanting an
 association to have a -log10(pvalue) of greater than or equal to 4 for a
 metabolomic feature to remain in the list. Column 4 is the first column
-of a metabolomic
-feature.
+of a metabolomic feature.
 
 ``` r
 mGWASResultPosProgFilt <- Filter(function(x) max(x) >= 4, # the max of the column must be >=4
@@ -349,18 +470,18 @@ dim(mGWASResultPosProgFilt)
 head_short(mGWASResultPosProgFilt)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   X235.1692122397… X251.1632893751… X377.2656580913… X305.1740957514…
-    ##              <dbl>            <dbl>            <dbl>            <dbl>
-    ## 1           0.493            0.290            0.129            0.0831
-    ## 2           0.0696           0.106            0.261            0.324 
-    ## 3           0.270            0.0944           0.0232           0.153 
-    ## 4           0.347            0.485            0.123            0.106 
-    ## 5           0.652            0.994            0.0389           0.982 
+    ## # A tibble: 5 × 5
+    ##   X235.16921223973_4… X251.16328937515_4… X377.265658091383_… X305.174095751415…
+    ##                 <dbl>               <dbl>               <dbl>              <dbl>
+    ## 1              0.493               0.290               0.129              0.0831
+    ## 2              0.0696              0.106               0.261              0.324 
+    ## 3              0.270               0.0944              0.0232             0.153 
+    ## 4              0.347               0.485               0.123              0.106 
+    ## 5              0.652               0.994               0.0389             0.982 
     ## # … with 1 more variable: X269.137908436327_3.08924992997199 <dbl>
 
 Here, the number of columns is the number of metabolomic features with
-putative mQTL from the LCMS Pos, Progeny mGWAS –\> *1,787*
+putative mQTL from the LCMS Pos, Progeny mGWAS –&gt; *1,787*
 
 ### LCMS (-)
 
@@ -377,8 +498,14 @@ corrected by genetic markers developed with AGHmatrix.
 Columns are metabolomic features and rows are SNPs. The first 3 columns
 are metadata concerning the SNPs.
 
+Table S15 Output from metabolite genome-wide association studies (mGWAS)
+in the form of -log10(P) values for each single nucleotide polymorphism
+(SNP)-metabolomic feature combination for the analysis of liquid
+chromatography-mass spectrometry (LC-MS) (-) data of the Diverse
+population set. NA denotes missing data.
+
 ``` r
-mGWASResultNegDiv<- read_csv("TableS16_LCMS_Neg_Div_mGWASresults.csv",
+mGWASResultNegDiv<- read_csv("nph17693-sup-0006-tables15.csv",
                              col_names=TRUE) # this takes a minute
 dim(mGWASResultNegDiv)
 ```
@@ -389,7 +516,7 @@ dim(mGWASResultNegDiv)
 head_short(mGWASResultNegDiv)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X885.2037_2.98177 X525.1583_3.24969
     ##   <dbl>         <dbl>            <dbl>             <dbl>             <dbl>
     ## 1     1             1            0                0.0440             0.382
@@ -398,8 +525,7 @@ head_short(mGWASResultNegDiv)
     ## 4     5             1            0.004            0.263              0.617
     ## 5     6             1            0.005            0.0467             0.161
 
-Get rid of all rows with 0s (SNPs that did not meet the MAF
-minimum)
+Get rid of all rows with 0s (SNPs that did not meet the MAF minimum)
 
 ``` r
 mGWASResultNegDiv0 <- mGWASResultNegDiv[apply(mGWASResultNegDiv[4:ncol(mGWASResultNegDiv)],
@@ -414,7 +540,7 @@ dim(mGWASResultNegDiv0)
 head_short(mGWASResultNegDiv0)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X885.2037_2.98177 X525.1583_3.24969
     ##   <dbl>         <dbl>            <dbl>             <dbl>             <dbl>
     ## 1     1             1            0                0.0440             0.382
@@ -423,14 +549,13 @@ head_short(mGWASResultNegDiv0)
     ## 4     5             1            0.004            0.263              0.617
     ## 5     6             1            0.005            0.0467             0.161
 
-##### Filter -log(pvalue) \>= 5
+##### Filter -log(pvalue) &gt;= 5
 
 We want to see which metabolomic features have strong significant
 associations with at least one SNP. In this case, we are wanting an
 association to have a -log10(pvalue) of greater than or equal to 5 for a
 metabolomic feature to remain in the list. Column 4 is the first column
-of a metabolomic
-feature.
+of a metabolomic feature.
 
 ``` r
 mGWASResultNegDivFilt <- Filter(function(x) max(x) >= 5, # the max of the column must be >=5
@@ -444,18 +569,18 @@ dim(mGWASResultNegDivFilt)
 head_short(mGWASResultNegDivFilt)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   X739.17477_2.71… X600.12641_2.10… X349.0664_1.932… X599.11324_2.33…
-    ##              <dbl>            <dbl>            <dbl>            <dbl>
-    ## 1           0.0614           0.0590          0.125              0.388
-    ## 2           0.0808           0.242           0.235              0.403
-    ## 3           0.265            0.109           0.00692            0.754
-    ## 4           0.334            0.142           0.788              0.222
-    ## 5           0.343            0.0199          0.306              0.236
+    ## # A tibble: 5 × 5
+    ##   X739.17477_2.71076 X600.12641_2.10625 X349.0664_1.93204 X599.11324_2.3381
+    ##                <dbl>              <dbl>             <dbl>             <dbl>
+    ## 1             0.0614             0.0590           0.125               0.388
+    ## 2             0.0808             0.242            0.235               0.403
+    ## 3             0.265              0.109            0.00692             0.754
+    ## 4             0.334              0.142            0.788               0.222
+    ## 5             0.343              0.0199           0.306               0.236
     ## # … with 1 more variable: X1027.23518_2.83278 <dbl>
 
 Here, the number of columns is the number of metabolomic features with
-putative mQTL from the LCMS Neg, Diverse mGWAS –\> *1,370*
+putative mQTL from the LCMS Neg, Diverse mGWAS –&gt; *1,370*
 
 #### Pedigree
 
@@ -470,8 +595,14 @@ corrected by genetic markers developed with AGHmatrix.
 Columns are metabolomic features and rows are SNPs. The first 3 columns
 are metadata concerning the SNPs.
 
+Table S16 Output from metabolite genome-wide association studies (mGWAS)
+in the form of -log10(P) values for each single nucleotide polymorphism
+(SNP)-metabolomic feature combination for the analysis of liquid
+chromatography-mass spectrometry (LC-MS) (-) data of the Pedigree
+population set. NA denotes missing data.
+
 ``` r
-mGWASResultNegPed<- read_csv("TableS17_LCMS_Neg_Ped_mGWASresults.csv",
+mGWASResultNegPed<- read_csv("nph17693-sup-0007-tables16.csv",
                              col_names=TRUE)
 dim(mGWASResultNegPed)
 ```
@@ -482,7 +613,7 @@ dim(mGWASResultNegPed)
 head_short(mGWASResultNegPed)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X885.2037_2.98177 X525.1583_3.24969
     ##   <dbl>         <dbl>            <dbl>             <dbl>             <dbl>
     ## 1     1             1            0                0.176             0.117 
@@ -491,8 +622,7 @@ head_short(mGWASResultNegPed)
     ## 4     5             1            0.004            0.217             0.309 
     ## 5     6             1            0.005            0.0548            0.110
 
-Get rid of all rows with 0s (SNPs that did not meet the MAF
-minimum)
+Get rid of all rows with 0s (SNPs that did not meet the MAF minimum)
 
 ``` r
 mGWASResultNegPed0 <- mGWASResultNegPed[apply(mGWASResultNegPed[4:ncol(mGWASResultNegPed)],
@@ -507,7 +637,7 @@ dim(mGWASResultNegPed0)
 head_short(mGWASResultNegPed0)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X885.2037_2.98177 X525.1583_3.24969
     ##   <dbl>         <dbl>            <dbl>             <dbl>             <dbl>
     ## 1     1             1            0                0.176             0.117 
@@ -516,14 +646,13 @@ head_short(mGWASResultNegPed0)
     ## 4     5             1            0.004            0.217             0.309 
     ## 5     6             1            0.005            0.0548            0.110
 
-##### Filter -log(pvalue) \>= 5
+##### Filter -log(pvalue) &gt;= 5
 
 We want to see which metabolomic features have strong significant
 associations with at least one SNP. In this case, we are wanting an
 association to have a -log10(pvalue) of greater than or equal to 5 for a
 metabolomic feature to remain in the list. Column 4 is the first column
-of a metabolomic
-feature.
+of a metabolomic feature.
 
 ``` r
 mGWASResultNegPedFilt <- Filter(function(x) max(x) >= 5, # the max of the column must be >=5
@@ -537,18 +666,18 @@ dim(mGWASResultNegPedFilt)
 head_short(mGWASResultNegPedFilt)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   X600.12641_2.10… X599.11324_2.33… X666.02291_2.33… X599.12186_2.10…
-    ##              <dbl>            <dbl>            <dbl>            <dbl>
-    ## 1           0.323            0.143            0.0125          0.266  
-    ## 2           0.173            0.0328           0.317           0.0346 
-    ## 3           0.128            0.414            0.0250          0.120  
-    ## 4           0.0503           0.198            0.325           0.497  
-    ## 5           0.0784           0.349            0.240           0.00356
+    ## # A tibble: 5 × 5
+    ##   X600.12641_2.10625 X599.11324_2.3381 X666.02291_2.33742 X599.12186_2.10421
+    ##                <dbl>             <dbl>              <dbl>              <dbl>
+    ## 1             0.323             0.143              0.0125            0.266  
+    ## 2             0.173             0.0328             0.317             0.0346 
+    ## 3             0.128             0.414              0.0250            0.120  
+    ## 4             0.0503            0.198              0.325             0.497  
+    ## 5             0.0784            0.349              0.240             0.00356
     ## # … with 1 more variable: X695.20221_2.25108 <dbl>
 
 Here, the number of columns is the number of metabolomic features with
-putative mQTL from the LCMS Neg, Pedigree mGWAS –\> *1,187*
+putative mQTL from the LCMS Neg, Pedigree mGWAS –&gt; *1,187*
 
 #### Progeny
 
@@ -563,8 +692,14 @@ corrected by genetic markers developed with AGHmatrix.
 Columns are metabolomic features and rows are SNPs. The first 3 columns
 are metadata concerning the SNPs.
 
+Table S17 Output from metabolite genome-wide association studies (mGWAS)
+in the form of -log10(P) values for each single nucleotide polymorphism
+(SNP)-metabolomic feature combination for the analysis of liquid
+chromatography-mass spectrometry (LC-MS) (-) data of the Progeny
+population set. NA denotes missing data.
+
 ``` r
-mGWASResultNegProg<- read_csv("TableS18_LCMS_Neg_Prog_mGWASresults.csv",
+mGWASResultNegProg<- read_csv("nph17693-sup-0008-tables17.csv",
                               col_names=TRUE) # this takes a minute
 dim(mGWASResultNegProg)
 ```
@@ -575,7 +710,7 @@ dim(mGWASResultNegProg)
 head_short(mGWASResultNegProg)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X885.2037_2.98177 X525.1583_3.24969
     ##   <dbl>         <dbl>            <dbl>             <dbl>             <dbl>
     ## 1     1             1            0                 0.329            0.178 
@@ -584,8 +719,7 @@ head_short(mGWASResultNegProg)
     ## 4     5             1            0.004             0                0     
     ## 5     6             1            0.005             0.161            0.0766
 
-Get rid of all rows with 0s (SNPs that did not meet the MAF
-minimum)
+Get rid of all rows with 0s (SNPs that did not meet the MAF minimum)
 
 ``` r
 mGWASResultNegProg0 <- mGWASResultNegProg[apply(mGWASResultNegProg[4:ncol(mGWASResultNegProg)],
@@ -600,7 +734,7 @@ dim(mGWASResultNegProg0)
 head_short(mGWASResultNegProg0)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X885.2037_2.98177 X525.1583_3.24969
     ##   <dbl>         <dbl>            <dbl>             <dbl>             <dbl>
     ## 1     1             1            0                 0.329            0.178 
@@ -609,14 +743,13 @@ head_short(mGWASResultNegProg0)
     ## 4     6             1            0.005             0.161            0.0766
     ## 5     7             1            0.006             0.297            0.190
 
-##### Filter -log(pvalue) \>= 4
+##### Filter -log(pvalue) &gt;= 4
 
 We want to see which metabolomic features have strong significant
 associations with at least one SNP. In this case, we are wanting an
 association to have a -log10(pvalue) of greater than or equal to 4 for a
 metabolomic feature to remain in the list. Column 4 is the first column
-of a metabolomic
-feature.
+of a metabolomic feature.
 
 ``` r
 mGWASResultNegProgFilt <- Filter(function(x) max(x) >= 4, # the max of the column must be >=4
@@ -630,18 +763,18 @@ dim(mGWASResultNegProgFilt)
 head_short(mGWASResultNegProgFilt)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   X525.1583_3.249… X600.12641_2.10… X758.54656_8.644 X599.11324_2.33…
-    ##              <dbl>            <dbl>            <dbl>            <dbl>
-    ## 1           0.178            0.142            0.166            0.355 
-    ## 2           0.0703           0.0680           0.0615           0.0688
-    ## 3           0.0596           0.113            0.140            0.522 
-    ## 4           0.0766           0.0881           0.0373           0.527 
-    ## 5           0.190            0.400            0.422            0.986 
+    ## # A tibble: 5 × 5
+    ##   X525.1583_3.24969 X600.12641_2.10625 X758.54656_8.644 X599.11324_2.3381
+    ##               <dbl>              <dbl>            <dbl>             <dbl>
+    ## 1            0.178              0.142            0.166             0.355 
+    ## 2            0.0703             0.0680           0.0615            0.0688
+    ## 3            0.0596             0.113            0.140             0.522 
+    ## 4            0.0766             0.0881           0.0373            0.527 
+    ## 5            0.190              0.400            0.422             0.986 
     ## # … with 1 more variable: X666.02291_2.33742 <dbl>
 
 Here, the number of columns is the number of metabolomic features with
-putative mQTL from the LCMS Neg, Progeny mGWAS –\> *1,962*
+putative mQTL from the LCMS Neg, Progeny mGWAS –&gt; *1,962*
 
 ### NMR
 
@@ -658,8 +791,14 @@ corrected by genetic markers developed with AGHmatrix.
 Columns are metabolomic features (bins) and rows are SNPs. The first 3
 columns are metadata concerning the SNPs.
 
+Table S18 Output from metabolite genome-wide association studies (mGWAS)
+in the form of -log10(P) values for each single nucleotide polymorphism
+(SNP)-metabolomic feature combination for the analysis of nuclear
+magnetic resonance (NMR) spectroscopy data of the Diverse population
+set. NA denotes missing data.
+
 ``` r
-mGWASResultNMRDiv<- read_csv("TableS19_LCMS_NMR_Div_mGWASresults.csv",
+mGWASResultNMRDiv<- read_csv("nph17693-sup-0009-tables18.csv",
                              col_names=TRUE) # this takes a minute
 dim(mGWASResultNMRDiv)
 ```
@@ -670,7 +809,7 @@ dim(mGWASResultNMRDiv)
 head_short(mGWASResultNMRDiv)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X9.45.9.44 X9.44.9.43
     ##   <dbl>         <dbl>            <dbl>      <dbl>      <dbl>
     ## 1     1             1            0        0.0972      0.320 
@@ -679,8 +818,7 @@ head_short(mGWASResultNMRDiv)
     ## 4     5             1            0.004    0.00280     0.0855
     ## 5     6             1            0.005    0.455       0.139
 
-Get rid of all rows with 0s (SNPs that did not meet the MAF
-minimum)
+Get rid of all rows with 0s (SNPs that did not meet the MAF minimum)
 
 ``` r
 mGWASResultNMRDiv0 <- mGWASResultNMRDiv[apply(mGWASResultNMRDiv[4:ncol(mGWASResultNMRDiv)],
@@ -695,7 +833,7 @@ dim(mGWASResultNMRDiv0)
 head_short(mGWASResultNMRDiv0)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X9.45.9.44 X9.44.9.43
     ##   <dbl>         <dbl>            <dbl>      <dbl>      <dbl>
     ## 1     1             1            0        0.0972      0.320 
@@ -704,14 +842,13 @@ head_short(mGWASResultNMRDiv0)
     ## 4     5             1            0.004    0.00280     0.0855
     ## 5     6             1            0.005    0.455       0.139
 
-##### Filter -log(pvalue) \>= 4
+##### Filter -log(pvalue) &gt;= 4
 
 We want to see which metabolomic features have strong significant
 associations with at least one SNP. In this case, we are wanting an
 association to have a -log10(pvalue) of greater than or equal to 4 for a
 metabolomic feature to remain in the list. Column 4 is the first column
-of a metabolomic
-feature.
+of a metabolomic feature.
 
 ``` r
 mGWASResultNMRDivFilt <- Filter(function(x) max(x) >= 4, # the max of the column must be >=4
@@ -725,7 +862,7 @@ dim(mGWASResultNMRDivFilt)
 head_short(mGWASResultNMRDivFilt)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   X9.45.9.44 X9.22.9.21 X9.18.9.17 X8.91.8.9 X8.9.8.89
     ##        <dbl>      <dbl>      <dbl>     <dbl>     <dbl>
     ## 1    0.0972       0.329     0.570      0.236     0.226
@@ -735,7 +872,7 @@ head_short(mGWASResultNMRDivFilt)
     ## 5    0.455        0.255     0.827      0.291     0.140
 
 Here, the number of columns is the number of metabolomic features with
-putative mQTL from the NMR, Diverse mGWAS –\> *374*
+putative mQTL from the NMR, Diverse mGWAS –&gt; *374*
 
 #### Pedigree
 
@@ -750,8 +887,14 @@ corrected by genetic markers developed with AGHmatrix.
 Columns are metabolomic features and rows are SNPs. The first 3 columns
 are metadata concerning the SNPs.
 
+Table S19 Output from metabolite genome-wide association studies (mGWAS)
+in the form of -log10(P) values for each single nucleotide polymorphism
+(SNP)-metabolomic feature combination for the analysis of nuclear
+magnetic resonance (NMR) spectroscopy data of the Pedigree population
+set. NA denotes missing data.
+
 ``` r
-mGWASResultNMRPed<- read_csv("TableS20_LCMS_NMR_Ped_mGWASresults.csv",
+mGWASResultNMRPed<- read_csv("nph17693-sup-0010-tables19.csv",
                              col_names=TRUE) # this takes a minute
 dim(mGWASResultNMRPed)
 ```
@@ -762,7 +905,7 @@ dim(mGWASResultNMRPed)
 head_short(mGWASResultNMRPed)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X9.45.9.44 X9.44.9.43
     ##   <dbl>         <dbl>            <dbl>      <dbl>      <dbl>
     ## 1     1             1            0         0.270      0.272 
@@ -771,8 +914,7 @@ head_short(mGWASResultNMRPed)
     ## 4     5             1            0.004     0.454      0.323 
     ## 5     6             1            0.005     0.0398     0.0445
 
-Get rid of all rows with 0s (SNPs that did not meet the MAF
-minimum)
+Get rid of all rows with 0s (SNPs that did not meet the MAF minimum)
 
 ``` r
 mGWASResultNMRPed0 <- mGWASResultNMRPed[apply(mGWASResultNMRPed[4:ncol(mGWASResultNMRPed)],
@@ -787,7 +929,7 @@ dim(mGWASResultNMRPed0)
 head_short(mGWASResultNMRPed0)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X9.45.9.44 X9.44.9.43
     ##   <dbl>         <dbl>            <dbl>      <dbl>      <dbl>
     ## 1     1             1            0         0.270      0.272 
@@ -796,14 +938,13 @@ head_short(mGWASResultNMRPed0)
     ## 4     5             1            0.004     0.454      0.323 
     ## 5     6             1            0.005     0.0398     0.0445
 
-##### Filter -log(pvalue) \>= 4
+##### Filter -log(pvalue) &gt;= 4
 
 We want to see which metabolomic features have strong significant
 associations with at least one SNP. In this case, we are wanting an
 association to have a -log10(pvalue) of greater than or equal to 4 for a
 metabolomic feature to remain in the list. Column 4 is the first column
-of a metabolomic
-feature.
+of a metabolomic feature.
 
 ``` r
 mGWASResultNMRPedFilt <- Filter(function(x) max(x) >= 4, # the max of the column must be >=4
@@ -817,7 +958,7 @@ dim(mGWASResultNMRPedFilt)
 head_short(mGWASResultNMRPedFilt)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   X9.43.9.42 X9.18.9.17 X8.91.8.9 X8.9.8.89 X8.85.8.84
     ##        <dbl>      <dbl>     <dbl>     <dbl>      <dbl>
     ## 1     0.0921     0.508     0.280     0.210       0.495
@@ -827,7 +968,7 @@ head_short(mGWASResultNMRPedFilt)
     ## 5     0.236      0.115     0.0524    0.554       0.288
 
 Here, the number of columns is the number of metabolomic features with
-putative mQTL from the NMR, Pedigree mGWAS –\> *385*
+putative mQTL from the NMR, Pedigree mGWAS –&gt; *385*
 
 #### Progeny
 
@@ -842,8 +983,13 @@ corrected by genetic markers developed with AGHmatrix.
 Columns are metabolomic features and rows are SNPs. The first 3 columns
 are metadata concerning the SNPs.
 
+Table S20 Output from metabolite genome-wide association studies (mGWAS)
+in the form of -log10(P) values for each single nucleotide polymorphism
+(SNP)-metabolomic feature combination for the analysis of NMR data of
+the Progeny population set. NA denotes missing data.
+
 ``` r
-mGWASResultNMRProg<- read_csv("TableS21_LCMS_NMR_Prog_mGWASresults.csv",
+mGWASResultNMRProg<- read_csv("nph17693-sup-0011-tables20.csv",
                               col_names=TRUE) # this takes a minute
 dim(mGWASResultNMRProg)
 ```
@@ -854,7 +1000,7 @@ dim(mGWASResultNMRProg)
 head_short(mGWASResultNMRProg)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X9.45.9.44 X9.44.9.43
     ##   <dbl>         <dbl>            <dbl>      <dbl>      <dbl>
     ## 1     1             1            0         0.593      0.187 
@@ -863,8 +1009,7 @@ head_short(mGWASResultNMRProg)
     ## 4     5             1            0.004     0          0     
     ## 5     6             1            0.005     0.0966     0.0183
 
-Get rid of all rows with 0s (SNPs that did not meet the MAF
-minimum)
+Get rid of all rows with 0s (SNPs that did not meet the MAF minimum)
 
 ``` r
 mGWASResultNMRProg0 <- mGWASResultNMRProg[apply(mGWASResultNMRProg[4:ncol(mGWASResultNMRProg)],
@@ -879,7 +1024,7 @@ dim(mGWASResultNMRProg0)
 head_short(mGWASResultNMRProg0)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X9.45.9.44 X9.44.9.43
     ##   <dbl>         <dbl>            <dbl>      <dbl>      <dbl>
     ## 1     1             1            0         0.593      0.187 
@@ -888,14 +1033,13 @@ head_short(mGWASResultNMRProg0)
     ## 4     6             1            0.005     0.0966     0.0183
     ## 5     7             1            0.006     0.373      0.0783
 
-##### Filter -log(pvalue) \>= 4
+##### Filter -log(pvalue) &gt;= 4
 
 We want to see which metabolomic features have strong significant
 associations with at least one SNP. In this case, we are wanting an
 association to have a -log10(pvalue) of greater than or equal to 4 for a
 metabolomic feature to remain in the list. Column 4 is the first column
-of a metabolomic
-feature.
+of a metabolomic feature.
 
 ``` r
 mGWASResultNMRProgFilt <- Filter(function(x) max(x) >= 4, # the max of the column must be >=4
@@ -909,7 +1053,7 @@ dim(mGWASResultNMRProgFilt)
 head_short(mGWASResultNMRProgFilt)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   X9.44.9.43 X9.43.9.42 X9.39.9.38 X9.37.9.36 X8.91.8.9
     ##        <dbl>      <dbl>      <dbl>      <dbl>     <dbl>
     ## 1     0.187      0.123      0.190      0.410      0.228
@@ -919,7 +1063,7 @@ head_short(mGWASResultNMRProgFilt)
     ## 5     0.0783     0.200      1.12       0.151      0.360
 
 Here, the number of columns is the number of metabolomic features with
-putative mQTL from the NMR, Progeny mGWAS –\> *281*
+putative mQTL from the NMR, Progeny mGWAS –&gt; *281*
 
 ## Venn Diagrams - Sig. Results
 
@@ -943,8 +1087,7 @@ PosProgMetabs <- colnames(mGWASResultPosProgFilt)
 
 #### Extract Intersection
 
-Next, get intersection data for each element of the Venn
-Diagram
+Next, get intersection data for each element of the Venn Diagram
 
 ``` r
 PosProgCount <- length(PosProgMetabs) # number of sig metabs in the pos progeny
@@ -1007,8 +1150,7 @@ NegProgMetabs <- colnames(mGWASResultNegProgFilt)
 
 #### Extract Intersection
 
-Next, get intersection data for each element of the Venn
-Diagram
+Next, get intersection data for each element of the Venn Diagram
 
 ``` r
 NegProgCount <- length(NegProgMetabs) # number of sig metabs in the Neg progeny
@@ -1057,7 +1199,7 @@ plot(venn(c("Progenies" = NegProgCount, # This will give names to each section o
 
 ![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 726 features were found in the interesection This is interesting because
-it is ~200 more mQTL than detected via LCMS. It is possible that this
+it is \~200 more mQTL than detected via LCMS. It is possible that this
 difference is due to the fact that LCMS (-) is the preferred ionization
 mode for sensitive detection of phenolic compounds.
 
@@ -1073,8 +1215,7 @@ NMRProgMetabs <- colnames(mGWASResultNMRProgFilt)
 
 #### Extract Intersection
 
-Next, get intersection data for each element of the Venn
-Diagram
+Next, get intersection data for each element of the Venn Diagram
 
 ``` r
 NMRProgCount <- length(NMRProgMetabs) # number of sig metabs in the NMR progeny
@@ -1122,8 +1263,7 @@ plot(venn(c("Progenies" = NMRProgCount, # This will give names to each section o
 ```
 
 ![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
-177 features were found in the
-intersection
+177 features were found in the intersection
 
 ### DF for Sig Metabs Only
 
@@ -1138,14 +1278,14 @@ dim(PosDivSigMetabsSubset) # scolumns hould be number in the middle of Pos inter
 head_short(PosDivSigMetabsSubset)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   X130.1591723148… X227.1278530284… X475.3033473554… X229.1434426144…
-    ##              <dbl>            <dbl>            <dbl>            <dbl>
-    ## 1            0.225          0.422             0.0763            0.229
-    ## 2            0.116          0.00156           0.0381            0.174
-    ## 3            0.442          0.559             0.182             0.134
-    ## 4            0.912          0.0611            0.780             0.182
-    ## 5            0.221          0.880             0.0664            0.365
+    ## # A tibble: 5 × 5
+    ##   X130.159172314837_… X227.127853028416_… X475.30334735541_6… X229.143442614417…
+    ##                 <dbl>               <dbl>               <dbl>              <dbl>
+    ## 1               0.225             0.422                0.0763              0.229
+    ## 2               0.116             0.00156              0.0381              0.174
+    ## 3               0.442             0.559                0.182               0.134
+    ## 4               0.912             0.0611               0.780               0.182
+    ## 5               0.221             0.880                0.0664              0.365
     ## # … with 1 more variable: X385.179963469991_3.61913942577029 <dbl>
 
 ``` r
@@ -1159,14 +1299,14 @@ dim(NegDivSigMetabsSubset) # scolumns hould be number in the middle of Neg inter
 head_short(NegDivSigMetabsSubset)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   X600.12641_2.10… X599.11324_2.33… X666.02291_2.33… X599.12186_2.10…
-    ##              <dbl>            <dbl>            <dbl>            <dbl>
-    ## 1           0.0590            0.388            0.258          0.0135 
-    ## 2           0.242             0.403            0.895          0.385  
-    ## 3           0.109             0.754            0.372          0.123  
-    ## 4           0.142             0.222            0.472          0.477  
-    ## 5           0.0199            0.236            0.338          0.00492
+    ## # A tibble: 5 × 5
+    ##   X600.12641_2.10625 X599.11324_2.3381 X666.02291_2.33742 X599.12186_2.10421
+    ##                <dbl>             <dbl>              <dbl>              <dbl>
+    ## 1             0.0590             0.388              0.258            0.0135 
+    ## 2             0.242              0.403              0.895            0.385  
+    ## 3             0.109              0.754              0.372            0.123  
+    ## 4             0.142              0.222              0.472            0.477  
+    ## 5             0.0199             0.236              0.338            0.00492
     ## # … with 1 more variable: X616.11819_1.97414 <dbl>
 
 ``` r
@@ -1180,7 +1320,7 @@ dim(NMRDivSigMetabsSubset) # scolumns hould be number in the middle of NMR inter
 head_short(NMRDivSigMetabsSubset)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   X8.91.8.9 X8.9.8.89 X8.67.8.66 X8.54.8.53 X8.42.8.41
     ##       <dbl>     <dbl>      <dbl>      <dbl>      <dbl>
     ## 1     0.236     0.226    0.463       1.07       0.0202
@@ -1204,8 +1344,7 @@ When we were filtering for the significant metabolomic features, we lost
 the SNP metadata (first 3 columns of the original data we read in). Now
 we want it back. We will be using the diverse mGWAS results from now on
 so we will use the Div data frames but the same could be done with the
-pedigree and progeny data
-frames.
+pedigree and progeny data frames.
 
 ``` r
 PosDivSigMetabsSubsetSNP <- PosDivSigMetabsSubset %>% # the df we want to add columns to
@@ -1222,7 +1361,7 @@ dim(PosDivSigMetabsSubsetSNP)
 head_short(PosDivSigMetabsSubsetSNP)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X130.159172314837_3… X227.127853028416_2…
     ##   <dbl>         <dbl>            <dbl>                <dbl>                <dbl>
     ## 1     1             1            0                    0.225              0.422  
@@ -1246,7 +1385,7 @@ dim(NegDivSigMetabsSubsetSNP)
 head_short(NegDivSigMetabsSubsetSNP)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X600.12641_2.10625 X599.11324_2.3381
     ##   <dbl>         <dbl>            <dbl>              <dbl>             <dbl>
     ## 1     1             1            0                 0.0590             0.388
@@ -1270,7 +1409,7 @@ dim(NMRDivSigMetabsSubsetSNP)
 head_short(NMRDivSigMetabsSubsetSNP)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Index Linkage_Group Genetic_Distance X8.91.8.9 X8.9.8.89
     ##   <dbl>         <dbl>            <dbl>     <dbl>     <dbl>
     ## 1     1             1            0         0.236     0.226
@@ -1289,8 +1428,7 @@ mQTL on each chromosome.
 
 ### Prep Data
 
-Split up each dataset of significant features by linkage
-group
+Split up each dataset of significant features by linkage group
 
 ``` r
 PosChromoSplit <- split(PosDivSigMetabsSubsetSNP, PosDivSigMetabsSubsetSNP$Linkage_Group)
@@ -1449,7 +1587,7 @@ dim(PosSNPSwithSigAssoc)
 head(PosSNPSwithSigAssoc)
 ```
 
-    ## # A tibble: 6 x 4
+    ## # A tibble: 6 × 4
     ##   Index Linkage_Group Genetic_Distance NumSigMetabs
     ##   <dbl>         <dbl>            <dbl>        <dbl>
     ## 1     5             1            0.004           14
@@ -1475,7 +1613,7 @@ dim(NegSNPSwithSigAssoc)
 head(NegSNPSwithSigAssoc)
 ```
 
-    ## # A tibble: 6 x 4
+    ## # A tibble: 6 × 4
     ##   Index Linkage_Group Genetic_Distance NumSigMetabs
     ##   <dbl>         <dbl>            <dbl>        <dbl>
     ## 1     5             1            0.004           17
@@ -1501,7 +1639,7 @@ dim(NMRSNPSwithSigAssoc)
 head(NMRSNPSwithSigAssoc)
 ```
 
-    ## # A tibble: 6 x 4
+    ## # A tibble: 6 × 4
     ##   Index Linkage_Group Genetic_Distance NumSigMetabs
     ##   <dbl>         <dbl>            <dbl>        <dbl>
     ## 1   101             1              1.9            2
@@ -1531,7 +1669,7 @@ dim(AllSNP_LG_cM) # should be the full 10294 SNPs and just 3 columns
 head(AllSNP_LG_cM)
 ```
 
-    ## # A tibble: 6 x 3
+    ## # A tibble: 6 × 3
     ##   Index Linkage_Group Genetic_Distance
     ##   <dbl>         <dbl>            <dbl>
     ## 1     1             1            0    
@@ -1542,8 +1680,7 @@ head(AllSNP_LG_cM)
     ## 6     7             1            0.006
 
 Now we need to get the length in genetic distance for each of the
-chromosomes so that we can plot them in our
-map.
+chromosomes so that we can plot them in our map.
 
 ``` r
 allmaxGDs <- NULL # make an empty object where we will put the output in our 'for' loop
@@ -1568,8 +1705,7 @@ colors <- c("LC-MS (+)" = "cyan3",
 Create pdf of the plot with the legend. The legend has to be manual
 because the color is based on each geom\_point() because the color
 doesnt correspond to one variable, but instead to 3 data sets.
-pdf(file=“compositeCHRsigSNPmap061420.pdf”, width=13,
-height=8)
+pdf(file=“compositeCHRsigSNPmap061420.pdf”, width=13, height=8)
 
 ``` r
 compMap<- ggplot(data = allmaxGDsDF, # this allows me not to have to have a data call for geom_bars
@@ -1658,7 +1794,7 @@ dim(PosSNPSwithSigAssocCGA)
 head(PosSNPSwithSigAssocCGA)
 ```
 
-    ## # A tibble: 6 x 4
+    ## # A tibble: 6 × 4
     ##   Index Linkage_Group Genetic_Distance CGApos
     ##   <dbl>         <dbl>            <dbl>  <dbl>
     ## 1 14854            17             35.8   4.53
@@ -1684,7 +1820,7 @@ dim(NegSNPSwithSigAssocCGA)
 head(NegSNPSwithSigAssocCGA)
 ```
 
-    ## # A tibble: 6 x 4
+    ## # A tibble: 6 × 4
     ##   Index Linkage_Group Genetic_Distance CGANeg
     ##   <dbl>         <dbl>            <dbl>  <dbl>
     ## 1 14874            17             39.3   5.33
@@ -1710,7 +1846,7 @@ dim(NMRSNPSwithSigAssocCGA)
 head(NMRSNPSwithSigAssocCGA)
 ```
 
-    ## # A tibble: 6 x 4
+    ## # A tibble: 6 × 4
     ##   Index Linkage_Group Genetic_Distance CGANMR
     ##   <dbl>         <dbl>            <dbl>  <dbl>
     ## 1 14737            17             27.5   4.99
@@ -1909,6 +2045,63 @@ print(plot)
 ```
 
 ![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-1.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-2.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-3.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-4.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-5.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-6.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-7.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-8.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-9.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-10.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-11.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-12.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-13.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-14.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-15.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-16.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-69-17.png)<!-- -->
+assoc w/ 13681
+
+``` r
+sigsnp <- PosDivSigMetabsSubsetSNP %>% 
+  filter(Index==13681) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  filter(V1>5) %>% 
+  rownames_to_column(var="mz_rt") 
+sigsnpnometa <- sigsnp[-(1:3),] %>% 
+  separate(col=mz_rt,
+           into= c("mz","rt"),
+           sep="_") %>% 
+  separate(col=mz,
+           into=c("x","mz"),
+           sep="X") %>% 
+  select(-x)
+  
+sigsnpnometa$mz <- as.numeric(sigsnpnometa$mz)
+sigsnpnometa$rt <- as.numeric(sigsnpnometa$rt)
+
+dim(sigsnpnometa)
+```
+
+    ## [1] 255   3
+
+``` r
+head(sigsnpnometa)
+```
+
+    ##         mz       rt       V1
+    ## 4 338.2047 2.569309 8.690041
+    ## 5 271.0615 2.765466 6.282539
+    ## 6 123.0441 2.460390 5.855113
+    ## 7 247.0608 2.334900 8.216141
+    ## 8 139.0391 2.446573 8.814073
+    ## 9 184.5151 2.444594 6.693928
+
+``` r
+plot <- sigsnpnometa %>% 
+  ggplot(aes(x=rt, y=mz)) +
+  geom_point() +
+  scale_x_continuous(name="retention time")
+plot
+```
+
+![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-1.png)<!-- -->
+
+``` r
+plot <- sigsnpnometa %>% 
+  ggplot(aes(x=rt)) +
+  geom_histogram(binwidth = .03)
+  
+plot
+```
+
+![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-72-1.png)<!-- -->
 
 ### LCMS(-)
 
@@ -1947,7 +2140,7 @@ print(plot)
 }
 ```
 
-![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-1.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-2.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-3.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-4.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-5.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-6.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-7.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-8.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-9.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-10.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-11.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-12.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-13.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-14.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-15.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-16.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-70-17.png)<!-- -->
+![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-1.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-2.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-3.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-4.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-5.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-6.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-7.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-8.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-9.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-10.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-11.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-12.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-13.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-14.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-15.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-16.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-73-17.png)<!-- -->
 
 ### NMR
 
@@ -1986,7 +2179,7 @@ print(plot)
 }
 ```
 
-![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-1.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-2.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-3.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-4.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-5.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-6.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-7.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-8.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-9.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-10.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-11.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-12.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-13.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-14.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-15.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-16.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-71-17.png)<!-- -->
+![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-1.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-2.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-3.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-4.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-5.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-6.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-7.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-8.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-9.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-10.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-11.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-12.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-13.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-14.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-15.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-16.png)<!-- -->![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-74-17.png)<!-- -->
 
 ## Significant NMR Bins
 
@@ -1995,8 +2188,7 @@ lines indicate each bin that was significantly associated with at least
 one SNP. Dashed lines approximately divide the spectrum according to the
 type of compounds that elicit peaks at that chemical shift. The aromatic
 region and aliphatic region are in much lower abundance than the sugar
-region, so magnified inserts are also
-presented.
+region, so magnified inserts are also presented.
 
 ### Prepare data
 
@@ -2015,8 +2207,7 @@ head(sigbinsdf)
     ## 6 8.285
 
 We need to do something similar to get the bins that will draw the full
-spectrum of the QC sample analyzed by
-NMR
+spectrum of the QC sample analyzed by NMR
 
 ``` r
 allbins <- c(9.45,9.44,9.43,9.39,9.38,9.37,9.29,9.25,9.23,9.22,9.18,9.17,9.1,9.06,9.04,9.03,9.02,9.01,9.00,8.91,8.9,8.89,8.88,8.87,8.86,8.85,8.84,8.82,8.8,8.79,8.78,8.77,8.73,8.72,8.71,8.7,8.69,8.67,8.66,8.65,8.64,8.63,8.62,8.61,8.6,8.59,8.58,8.57,8.56,8.55,8.54,8.53,8.52,8.51,8.5,8.49,8.48,8.47,8.46,8.45,8.44,8.43,8.42,8.41,8.4,8.39,8.38,8.37,8.36,8.35,8.34,8.33,8.32,8.31,8.3,8.29,8.28,8.27,8.26,8.25,8.24,8.23,8.22,8.21,8.2,8.19,8.18,8.17,8.16,8.15,8.14,8.13,8.12,8.11,8.1,8.09,8.08,8.07,8.06,8.05,8.04,8.03,8.02,8.01,8.00,7.99,7.98,7.97,7.96,7.95,7.94,7.93,7.92,7.91,7.9,7.89,7.88,7.87,7.86,7.85,7.84,7.83,7.82,7.81,7.8,7.79,7.78,7.77,7.76,7.75,7.74,7.73,7.72,7.71,7.7,7.69,7.68,7.67,7.66,7.65,7.64,7.63,7.62,7.61,7.6,7.59,7.58,7.57,7.56,7.55,7.54,7.53,7.52,7.51,7.5,7.49,7.48,7.47,7.46,7.45,7.44,7.43,7.42,7.41,7.4,7.39,7.38,7.37,7.36,7.35,7.34,7.33,7.32,7.31,7.3,7.29,7.28,7.27,7.26,7.25,7.24,7.23,7.22,7.21,7.2,7.19,7.18,7.17,7.16,7.15,7.14,7.13,7.12,7.11,7.1,7.09,7.08,7.07,7.06,7.05,7.04,7.03,7.02,7.01,7.00,6.99,6.98,6.97,6.96,6.95,6.94,6.93,6.92,6.91,6.9,6.89,6.88,6.87,6.86,6.85,6.84,6.83,6.82,6.81,6.8,6.79,6.78,6.77,6.76,6.75,6.74,6.73,6.72,6.71,6.7,6.69,6.68,6.67,6.66,6.65,6.64,6.63,6.62,6.61,6.6,6.59,6.58,6.57,6.56,6.55,6.54,6.53,6.52,6.51,6.5,6.49,6.48,6.47,6.46,6.45,6.44,6.43,6.42,6.41,6.4,6.39,6.38,6.37,6.36,6.35,6.34,6.33,6.32,6.31,6.3,6.29,6.28,6.27,6.26,6.25,6.24,6.23,6.22,6.21,6.2,6.19,6.18,6.17,6.16,6.15,6.14,6.13,6.12,6.11,6.1,6.09,6.08,6.07,6.06,6.05,6.04,6.03,6.02,6.01,6.00,5.99,5.98,5.97,5.96,5.95,5.94,5.93,5.92,5.91,5.9,5.89,5.88,5.87,5.86,5.85,5.84,5.83,5.82,5.81,5.8,5.79,5.78,5.77,5.76,5.75,5.74,5.73,5.72,5.71,5.7,5.69,5.68,5.67,5.66,5.65,5.64,5.63,5.62,5.61,5.6,5.59,5.58,5.57,5.56,5.55,5.54,5.53,5.52,5.51,5.5,5.49,5.48,5.47,5.46,5.45,5.44,5.43,5.42,5.41,5.4,5.39,5.38,5.37,5.36,5.35,5.34,5.33,5.32,5.31,5.3,5.29,5.28,5.27,5.26,5.25,5.24,5.23,5.22,5.21,5.2,5.19,5.18,5.17,5.16,5.15,5.14,5.13,5.12,5.11,5.1,5.09,5.08,5.07,5.06,5.05,5.04,5.03,5.02,4.59,4.58,4.57,4.56,4.55,4.54,4.53,4.52,4.51,4.5,4.49,4.48,4.47,4.46,4.45,4.25,4.24,4.23,4.22,4.21,4.2,4.19,4.18,4.17,4.16,4.15,4.14,4.13,4.12,4.11,4.1,4.09,4.08,4.07,4.06,4.05,4.04,4.03,4.02,4.01,4.00,3.99,3.98,3.97,3.96,3.95,3.94,3.93,3.92,3.91,3.9,3.89,3.88,3.87,3.86,3.85,3.84,3.83,3.82,3.81,3.8,3.79,3.78,3.77,3.76,3.75,3.74,3.73,3.72,3.71,3.7,3.69,3.68,3.67,3.66,3.65,3.64,3.63,3.62,3.61,3.6,3.59,3.58,3.57,3.56,3.55,3.54,3.53,3.52,3.51,3.5,3.49,3.48,3.47,3.46,3.45,3.44,3.43,3.42,3.41,3.4,3.39,3.38,3.37,3.36,3.35,3.34,3.31,3.3,3.29,3.28,3.27,3.26,3.25,3.24,3.23,3.22,3.21,3.2,3.19,3.18,3.17,3.16,3.15,3.14,3.13,3.12,3.11,3.1,3.09,3.08,3.07,3.06,3.05,3.04,3.03,3.02,3.01,3.00,2.99,2.98,2.97,2.96,2.95,2.94,2.93,2.92,2.91,2.9,2.89,2.88,2.87,2.73,2.72,2.71,2.7,2.69,2.68,2.45,2.44,2.43,2.42,2.41,2.4,2.39,2.38,2.37,2.36,2.35,2.34,2.33,2.32,2.31,2.3,2.29,2.28,2.27,2.26,2.25,2.24,2.23,2.22,2.21,2.2,2.19,2.18,2.17,2.16,2.15,2.14,2.13,2.12,2.11,2.1,2.09,2.08,2.07,2.06,2.05,2.04,2.03,2.02,2.01,2.00,1.99,1.98,1.97,1.96,1.95,1.94,1.93,1.92,1.91,1.9,1.89,1.88,1.87,1.86,1.85,1.84,1.83,1.82,1.81,1.8,1.79,1.78,1.77,1.76,1.75,1.74,1.73,1.72,1.71,1.7,1.69,1.68,1.67,1.66,1.65,1.64,1.63,1.62,1.61,1.6,1.59,1.58,1.57,1.56,1.55,1.54,1.53,1.52,1.51,1.5,1.49,1.48,1.47,1.46,1.45,1.44,1.43,1.42,1.41,1.4,1.39,1.38,1.37,1.36,1.35,1.34,1.33,1.32,1.31,1.3,1.29,1.28,1.27,1.26,1.25,1.24,1.23,1.22,1.21,1.2,1.19,1.18,1.17,1.16,1.15,1.14,1.13,1.12,1.11,1.1,1.09,1.08,1.07,1.06,1.05,1.04,1.03,1.02,1.01,1.00,0.99,0.98,0.97,0.96,0.95,0.94,0.93,0.92,0.91,0.9,0.89,0.88,0.87,0.86,0.85,0.84,0.83,0.82,0.81,0.80,0.79,0.78,0.77,0.76,0.75,0.74,0.73,0.72,0.71,0.70,0.69,0.68,0.67,0.66,0.65,0.64,0.63,0.62,0.61,0.6,0.59,0.58,0.57,0.56,0.55,0.54,0.53,0.52,0.51)
@@ -2043,7 +2234,7 @@ dim(NMRDataQCRaw)
 head_short(NMRDataQCRaw)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label    `9.45,9.44` `9.44,9.43`
     ##   <chr>    <chr>  <chr>          <dbl>       <dbl>
     ## 1 HC       1      Pedigree       77.3       0.935 
@@ -2098,7 +2289,7 @@ mtext(side=3, line=2, adj=0, cex=1.8, mytitle)
 mtext(side=3, line=.7, adj=0, cex=1.5, mysubtitle)
 ```
 
-![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-76-1.png)<!-- -->
+![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-79-1.png)<!-- -->
 
 ### Aromatic Region
 
@@ -2121,7 +2312,7 @@ title(main="Aromatic Region",
       font.main=1)
 ```
 
-![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-78-1.png)<!-- -->
+![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-81-1.png)<!-- -->
 
 ### Amino Acid Region
 
@@ -2144,7 +2335,7 @@ title(main="Amino Acid Region",
       font.main=1)
 ```
 
-![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-80-1.png)<!-- -->
+![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-83-1.png)<!-- -->
 
 ## Chlorogenic Acid Manhattan Plots
 
@@ -2174,7 +2365,7 @@ title("Chlorogenic Acid Manhattan Plot - LC-MS (+)",
       font.main = 1)
 ```
 
-![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-82-1.png)<!-- -->
+![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-85-1.png)<!-- -->
 
 ### LCMS (-)
 
@@ -2193,7 +2384,7 @@ title("Chlorogenic Acid Manhattan Plot - LC-MS (-)",
       font.main = 1)
 ```
 
-![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-84-1.png)<!-- -->
+![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-87-1.png)<!-- -->
 
 ### NMR
 
@@ -2212,7 +2403,7 @@ title("Chlorogenic Acid Manhattan Plot - NMR",
       font.main = 1)
 ```
 
-![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-86-1.png)<!-- -->
+![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-89-1.png)<!-- -->
 
 ## Find Top SNPs on Chr
 
@@ -2233,7 +2424,7 @@ CGApos <- PosDivSigMetabsSubsetSNP %>%
 head(CGApos)
 ```
 
-    ## # A tibble: 6 x 4
+    ## # A tibble: 6 × 4
     ##   Index Linkage_Group Genetic_Distance X355.103099792586_2.2386339055794
     ##   <dbl>         <dbl>            <dbl>                             <dbl>
     ## 1 15109            17             59.9                              7.66
@@ -2254,7 +2445,7 @@ CGAneg <- NegDivSigMetabsSubsetSNP %>%
 head(CGAneg)
 ```
 
-    ## # A tibble: 6 x 4
+    ## # A tibble: 6 × 4
     ##   Index Linkage_Group Genetic_Distance X353.09194_2.23795
     ##   <dbl>         <dbl>            <dbl>              <dbl>
     ## 1 15109            17             59.9               7.65
@@ -2275,7 +2466,7 @@ CGAnmr <- NMRDivSigMetabsSubsetSNP %>%
 head(CGAnmr)
 ```
 
-    ## # A tibble: 6 x 4
+    ## # A tibble: 6 × 4
     ##   Index Linkage_Group Genetic_Distance X2.15.2.14
     ##   <dbl>         <dbl>            <dbl>      <dbl>
     ## 1 15111            17             59.9       6.07
@@ -2298,14 +2489,14 @@ CGAHaplotypeAll <- read_excel("TableSupplement.xlsx", # Excel file with data
 head_short(CGAHaplotypeAll)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   ...1      ...2             ...3              ...4            ...5             
-    ##   <chr>     <chr>            <chr>             <chr>           <chr>            
-    ## 1 <NA>      <NA>             Additive value    <NA>            Breeding value   
-    ## 2 Individu… ChlAcid_Pos      MQTRa1            MQTRd1          SUMQTR           
-    ## 3 Jonathan  18.937949540000… -0.1170000000000… 0.212999999999… 9.60000000000000…
-    ## 4 D02       17.4242189       -0.6530000000000… 1E-3            -0.6520000000000…
-    ## 5 D03       16.568941859999… -0.6530000000000… 1E-3            -0.6520000000000…
+    ## # A tibble: 5 × 5
+    ##   ...1       ...2               ...3                 ...4                ...5   
+    ##   <chr>      <chr>              <chr>                <chr>               <chr>  
+    ## 1 <NA>       <NA>               Additive value       <NA>                Breedi…
+    ## 2 Individual ChlAcid_Pos        MQTRa1               MQTRd1              SUMQTR 
+    ## 3 Jonathan   18.937949540000002 -0.11700000000000001 0.21299999999999999 9.6000…
+    ## 4 D02        17.4242189         -0.65300000000000002 1E-3                -0.652…
+    ## 5 D03        16.568941859999999 -0.65300000000000002 1E-3                -0.652…
 
 ## Prep Data
 
@@ -2315,28 +2506,28 @@ CGAHaplotypeAll1 <- CGAHaplotypeAll[-c(1:2),]
 head_short(CGAHaplotypeAll1)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   ...1     ...2             ...3              ...4             ...5             
-    ##   <chr>    <chr>            <chr>             <chr>            <chr>            
-    ## 1 Jonathan 18.937949540000… -0.1170000000000… 0.2129999999999… 9.60000000000000…
-    ## 2 D02      17.4242189       -0.6530000000000… 1E-3             -0.6520000000000…
-    ## 3 D03      16.568941859999… -0.6530000000000… 1E-3             -0.6520000000000…
-    ## 4 D07      17.490109530000… -0.6530000000000… 1E-3             -0.6520000000000…
-    ## 5 D08      17.36657568      -0.6530000000000… 1E-3             -0.6520000000000…
+    ## # A tibble: 5 × 5
+    ##   ...1     ...2               ...3                 ...4                ...5     
+    ##   <chr>    <chr>              <chr>                <chr>               <chr>    
+    ## 1 Jonathan 18.937949540000002 -0.11700000000000001 0.21299999999999999 9.600000…
+    ## 2 D02      17.4242189         -0.65300000000000002 1E-3                -0.65200…
+    ## 3 D03      16.568941859999999 -0.65300000000000002 1E-3                -0.65200…
+    ## 4 D07      17.490109530000002 -0.65300000000000002 1E-3                -0.65200…
+    ## 5 D08      17.36657568        -0.65300000000000002 1E-3                -0.65200…
 
 ``` r
 colnames(CGAHaplotypeAll1) <- CGAHaplotypeAll[2,] # make column names row 2 from first df
 head_short(CGAHaplotypeAll1)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   Individual ChlAcid_Pos      MQTRa1           MQTRd1           SUMQTR          
-    ##   <chr>      <chr>            <chr>            <chr>            <chr>           
-    ## 1 Jonathan   18.937949540000… -0.117000000000… 0.2129999999999… 9.6000000000000…
-    ## 2 D02        17.4242189       -0.653000000000… 1E-3             -0.652000000000…
-    ## 3 D03        16.568941859999… -0.653000000000… 1E-3             -0.652000000000…
-    ## 4 D07        17.490109530000… -0.653000000000… 1E-3             -0.652000000000…
-    ## 5 D08        17.36657568      -0.653000000000… 1E-3             -0.652000000000…
+    ## # A tibble: 5 × 5
+    ##   Individual ChlAcid_Pos        MQTRa1               MQTRd1              SUMQTR 
+    ##   <chr>      <chr>              <chr>                <chr>               <chr>  
+    ## 1 Jonathan   18.937949540000002 -0.11700000000000001 0.21299999999999999 9.6000…
+    ## 2 D02        17.4242189         -0.65300000000000002 1E-3                -0.652…
+    ## 3 D03        16.568941859999999 -0.65300000000000002 1E-3                -0.652…
+    ## 4 D07        17.490109530000002 -0.65300000000000002 1E-3                -0.652…
+    ## 5 D08        17.36657568        -0.65300000000000002 1E-3                -0.652…
 
 ``` r
 colnames(CGAHaplotypeAll1)
@@ -2357,7 +2548,7 @@ CGAHaplotypeAll2 <- CGAHaplotypeAll1 %>%
 head(CGAHaplotypeAll2) # dont need to use head_short here because there are only 2 columns
 ```
 
-    ## # A tibble: 6 x 3
+    ## # A tibble: 6 × 3
     ##   Individual QTL_genotype ChlAcid_Pos       
     ##   <chr>      <chr>        <chr>             
     ## 1 Jonathan   _q           18.937949540000002
@@ -2371,8 +2562,7 @@ Notice that the values for Chlorogenic acid are seen as characters. this
 is because when we read it in, there were some values that were
 characters in those first two lines that we have since dealt with. Now
 we need to convert that column to numeric before we can get summary
-statistics on
-it.
+statistics on it.
 
 ``` r
 CGAHaplotypeAll2$ChlAcid_Pos <- as.numeric(as.character(CGAHaplotypeAll2$ChlAcid_Pos))
@@ -2384,7 +2574,7 @@ CGAHaplotypeAll2$ChlAcid_Pos <- as.numeric(as.character(CGAHaplotypeAll2$ChlAcid
 head(CGAHaplotypeAll2) # now the second column should be <dbl>
 ```
 
-    ## # A tibble: 6 x 3
+    ## # A tibble: 6 × 3
     ##   Individual QTL_genotype ChlAcid_Pos
     ##   <chr>      <chr>              <dbl>
     ## 1 Jonathan   _q                  18.9
@@ -2408,15 +2598,14 @@ dim(CGAHaplotypeAllNaOmit) # this should give us 98 rows because that is how man
     ## [1] 98  3
 
 We also want to make QTL\_genotype a factor because that is how we want
-our boxplots
-organized
+our boxplots organized
 
 ``` r
 CGAHaplotypeAllNaOmit$QTL_genotype <- as.factor(CGAHaplotypeAllNaOmit$QTL_genotype)
 head(CGAHaplotypeAllNaOmit) # now we see column one labeled as a factor
 ```
 
-    ## # A tibble: 6 x 3
+    ## # A tibble: 6 × 3
     ##   Individual QTL_genotype ChlAcid_Pos
     ##   <chr>      <fct>              <dbl>
     ## 1 Jonathan   _q                  18.9
@@ -2434,7 +2623,7 @@ levels(CGAHaplotypeAllNaOmit$QTL_genotype) <- c("qq","qq","Qq","QQ")
 head(CGAHaplotypeAllNaOmit)
 ```
 
-    ## # A tibble: 6 x 3
+    ## # A tibble: 6 × 3
     ##   Individual QTL_genotype ChlAcid_Pos
     ##   <chr>      <fct>              <dbl>
     ## 1 Jonathan   qq                  18.9
@@ -2494,4 +2683,4 @@ CGAmQTLgenotypeBoxplot <- CGAHaplotypeAllNaOmit %>%
 CGAmQTLgenotypeBoxplot
 ```
 
-![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-101-1.png)<!-- -->
+![](Pt3_mGWAS_Results_Processing_and_Visualization_files/figure-gfm/unnamed-chunk-104-1.png)<!-- -->
