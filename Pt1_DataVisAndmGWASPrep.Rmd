@@ -1,5 +1,5 @@
 ---
-title: "Integrating genomics and multi-platform metabolomics enables metabolite QTL detection in breeding-relevant apple germplasm"
+title: "Integrating genomics and multiplatform metabolomics enables metabolite QTL detection in breeding-relevant apple germplasm"
 author: "Emma Bilbrey"
 date: "2/25/2021"
 output:
@@ -8,19 +8,36 @@ output:
     toc_depth: 4
 ---
 
-**Publication Authors:**
-Emma A Bilbrey, Kathryn Wiliamson, Emmanuel Hatzakis, Diane Doud Miller, Jonathan Fresnedo-Ramirez, Jessica L. Cooperstone
+**Publication Details:** Title: Integrating genomics and multiplatform metabolomics enables metabolite QTL detection in breeding-relevant apple germplasm
+
+Authors: Emma A. Bilbrey1, Kathryn Williamson2, Emmanuel Hatzakis2, Diane Doud Miller3, Jonathan Fresnedo-Ramírez3, Jessica L. Cooperstone1,2,\*
+
+1 Department of Horticulture and Crop Science, The Ohio State University, Columbus, OH, USA, 43210
+
+2 Department of Food Science and Technology, The Ohio State University, Columbus, OH, USA, 43210
+
+3 Department of Horticulture and Crop Science, The Ohio State University, Wooster, OH, USA, 44691
+
+\*Corresponding Author: 2001 Fyffe Court, Columbus, OH 43210, USA; Tel: +614 2922843; Email: [cooperstone.1\@osu.edu](mailto:cooperstone.1@osu.edu)
+
+Journal: New Phytologist 
+
+DOI: https://doi.org/10.1111/nph.17693
+
+- Apple (Malus × domestica) has commercial and nutritional value, but breeding constraints of tree crops limit varietal improvement. Marker-assisted selection minimises these drawbacks, but breeders lack applications for targeting fruit phytochemicals. To understand genotype–phytochemical associations in apples, we have developed a high-throughput integration strategy for genomic and multiplatform metabolomics data.
+- Here, 124 apple genotypes, including members of three pedigree-connected breeding families alongside diverse cultivars and wild selections, were genotyped and phenotyped. Metabolite genome-wide association studies (mGWAS) were conducted with c. 10 000 single nucleotide polymorphisms and phenotypic data acquired via LC–MS and 1H NMR untargeted metabolomics. Putative metabolite quantitative trait loci (mQTL) were then validated via pedigree-based analyses (PBA).
+- Using our developed method, 519, 726 and 177 putative mQTL were detected in LC–MS positive and negative ionisation modes, and NMR, respectively. mQTL were indicated on each chromosome, with hotspots on linkage groups 16 and 17. A chlorogenic acid mQTL was discovered on chromosome 17 via mGWAS and validated with a two-step PBA, enabling discovery of novel candidate gene–metabolite relationships.
+- Complementary data from three metabolomics approaches and dual genomics analyses increased confidence in validity of compound annotation and mQTL detection. Our platform demonstrates the utility of multiomic integration to advance data-driven, phytochemical-based plant breeding.
 
 To understand genotype-phytochemical associations in apple fruit, we have developed a high-throughput integration strategy for genomic and multi-platform metabolomics data.
 
-**Context**: 124 apple genotypes, including members of three pedigree-connected breeding families alongside diverse cultivars and wild selections, were genotyped and phenotyped. Metabolite genome-wide association studies (mGWAS) were conducted with ~10,000 single nucleotide polymorphisms alongside phenotypic data acquired via liquid chromatography mass spectrometry (LC-MS) and 1H nuclear magnetic resonance (NMR) untargeted metabolomics. Putative metabolite quantitative trait loci (mQTL) were then validated via pedigree-based analyses (PBA).
+**Context**: 124 apple genotypes, including members of three pedigree-connected breeding families alongside diverse cultivars and wild selections, were genotyped and phenotyped. Metabolite genome-wide association studies (mGWAS) were conducted with \~10,000 single nucleotide polymorphisms alongside phenotypic data acquired via liquid chromatography mass spectrometry (LC-MS) and 1H nuclear magnetic resonance (NMR) untargeted metabolomics. Putative metabolite quantitative trait loci (mQTL) were then validated via pedigree-based analyses (PBA).
 
 Code in this markdown represents the first third of the work for our publication. This third is dedicated to data visualization and prep for mGWAS analyses. Data inputs can be found in the supplemental material for the publication. Certain outputs from this section are then used in the batch scripts for conducting mGWAS analyses.
 
 Batch scripts used for mGWAS analyses are also provided in this repository as part 2. Part 3 is the code for results processing and visualization.
 
-R Packages
-The code format here will install packages if they are not installed then bring them into your library. If they are already installed, they will simply be loaded into your library.
+R Packages The code format here will install packages if they are not installed then bring them into your library. If they are already installed, they will simply be loaded into your library.
 
 ```{r, echo=FALSE, message=FALSE}
 if (!require(BiocManager)) {
@@ -78,11 +95,12 @@ Data here is read from the supplemental Excel document from our publication. Dat
 ## Metabolomics
 
 ### LCMS (+)
-In this data set, rows are samples (n=124 plus 33 pooled QCs) and columns are metabolomic features in the format m/z_retentiontime (n=4,872) plus 3 rows of metadata: Genotype, Number (assigned number to each genotype), Label (general apple category)
+
+In this data set, rows are samples (n=124 plus 33 pooled QCs) and columns are metabolomic features in the format m/z\_retentiontime (n=4,872) plus 3 rows of metadata: Genotype, Number (assigned number to each genotype), Label (general apple category)
 
 ```{r}
-PosDataQCsRaw <- read_excel("TableSupplement.xlsx", # Excel file with data
-                            sheet = "Table S6 LCMS Pos Data", # sheet within the excel file with data
+PosDataQCsRaw <- read_excel("nph17693-sup-0002-supinfo.xlsx", # Excel file with data
+                            sheet = "Table S9 LCMS Pos Data", # sheet within the excel file with data
                             col_names = TRUE, # we want to keep the first row as column names
                             trim_ws = TRUE, # we want to trim any white space
                             na = "0") # we want all zero values to be changed to 'NA'
@@ -117,11 +135,12 @@ head_short(PosDataQCsRawImputed)
 ```
 
 ### LCMS (-)
-In this data set, rows are samples (n=124 plus 33 pooled QCs) and columns are metabolomic features in the format m/z_retentiontime (n=4,703) plus 3 rows of metadata: Genotype, Number (assigned number to each genotype), Label (general apple category)
+
+In this data set, rows are samples (n=124 plus 33 pooled QCs) and columns are metabolomic features in the format m/z\_retentiontime (n=4,703) plus 3 rows of metadata: Genotype, Number (assigned number to each genotype), Label (general apple category)
 
 ```{r}
-NegDataQCsRaw <- read_excel("TableSupplement.xlsx", # Excel file with data
-                            sheet = "Table S7 LCMS Neg Data", # sheet within the excel file with data
+NegDataQCsRaw <- read_excel("nph17693-sup-0002-supinfo.xlsx", # Excel file with data
+                            sheet = "Table S10 LCMS Neg Data", # sheet within the excel file with data
                             col_names = TRUE, # we want to keep the first row as column names
                             trim_ws = TRUE, # we want to trim any white space
                             na = "0") # we want all zero values to be changed to 'NA'
@@ -156,11 +175,12 @@ head_short(NegDataQCsRawImputed)
 ```
 
 ### NMR
-In this data set, rows are samples (n=124 plus 1 pooled QC) and columns are 0.01 ppm-wide bins (n=756) labeled by chemical shift range (ppm). It is typical of NMR metabolomics to have a much smaller number of metabolomic features, here, bins.  NMR values were adjusted with an affine transformation in the package mrbin, so there are no NAs that need to be imputed. There are also 3 rows of metadata: Genotype, Number (assigned number to each genotype), Label (general apple category)
+
+In this data set, rows are samples (n=124 plus 1 pooled QC) and columns are 0.01 ppm-wide bins (n=756) labeled by chemical shift range (ppm). It is typical of NMR metabolomics to have a much smaller number of metabolomic features, here, bins. NMR values were adjusted with an affine transformation in the package mrbin, so there are no NAs that need to be imputed. There are also 3 rows of metadata: Genotype, Number (assigned number to each genotype), Label (general apple category)
 
 ```{r}
-NMRDataQCRaw <- read_excel("TableSupplement.xlsx", # Excel file with data
-                            sheet = "Table S8 1D NMR Data", # sheet within the excel file with data
+NMRDataQCRaw <- read_excel("nph17693-sup-0002-supinfo.xlsx", # Excel file with data
+                            sheet = "Table S11 1D NMR Data", # sheet within the excel file with data
                             col_names = TRUE, # we want to keep the first row as column names
                             trim_ws = TRUE, # we want to trim any white space
                             na = "0") # we want all zero values to be changed to 'NA'
@@ -186,10 +206,11 @@ In the case of the NMR data, no columns were removed, as we expected.
 In NMR data there are no missing values because an affine transformation was done to the negative values during data post processing using the R package mrbin.
 
 ## Genomics
-In this data set of genotype calls, rows are SNPs (n=11,165) and columns are samples (n=124). 
+
+In this data set of genotype calls, rows are SNPs (n=11,165) and columns are samples (n=124).
 
 ```{r}
-SNPData <- read_excel("TableSupplement.xlsx", # Excel file with data
+SNPData <- read_excel("nph17693-sup-0002-supinfo.xlsx", # Excel file with data
                       sheet = "Table S2 mGWAS SNP Data", # sheet within the excel file with data
                       col_names = TRUE, # we want to keep the first row as column names
                       trim_ws = TRUE, # we want to trim any white space
@@ -791,6 +812,7 @@ ggplot(data=pcaNegX,
   font("legend.title", size = 14) +
   font("legend.text", size = 12)
 ```
+
 #### NMR
 Centering and Scaling make it so that features that are more abundant are not seen as more important in the PCA.
 
@@ -1263,8 +1285,8 @@ The package AGHmatrix was used to construct an H matrix: a relationship matrix b
 In this section, we will calculate the additive relationship matrix. These calculations require a parentage file that consists of 3 Columns. Column 1:Individual, Column 2: Parent 1, Column 3: Parent 2 (parent order does not matter). Some individuals in the list are those that I do not have both SNP and metabolomic data for but they are helpful in tracking parentage through the apple genotypes. 0's represent an unknown parent.
 
 ```{r}
-Parentage4Amat <- as.data.frame(read_excel("TableSupplement.xlsx", # Excel file with data
-                                           sheet = "Table S11 Parentage for Amat",
+Parentage4Amat <- as.data.frame(read_excel("nph17693-sup-0002-supinfo.xlsx", # Excel file with data
+                                           sheet = "Table S6 Parentage for Amat",
                                            col_names = TRUE,
                                            trim_ws = TRUE))
 dim(Parentage4Amat)
@@ -1281,8 +1303,8 @@ head_short(Amat)
 In this section, we will calculate the genetic relationship matrix. These calculations require SNP data that is in the 0,1,2 format with missing data coded as NA. Some individuals in the list are those that I do not have both SNP and metabolomic data for but they are helpful in tracking parentage through the apple genotypes. 0's represent an unknown parent. 2 genotypes are included that have SNP data but no metabolomics data. Pedigree individuals used in Amat that dont have SNPs are not included here.
 
 ```{r message = FALSE}
-SNPs4Gmat <- data.frame(read_excel("TableSupplement.xlsx", # Excel file with data
-                                   sheet = "Table S12 SNPs for Gmat",
+SNPs4Gmat <- data.frame(read_excel("nph17693-sup-0002-supinfo.xlsx", # Excel file with data
+                                   sheet = "Table S7 SNPs for Gmat",
                                    col_names = TRUE,
                                    trim_ws = TRUE,
                                    na = "NA"),

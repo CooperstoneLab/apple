@@ -1,12 +1,116 @@
-Integrating genomics and multi-platform metabolomics enables metabolite
+Integrating genomics and multiplatform metabolomics enables metabolite
 QTL detection in breeding-relevant apple germplasm
 ================
 Emma Bilbrey
 2/25/2021
 
-**Publication Authors:** Emma A Bilbrey, Kathryn Wiliamson, Emmanuel
-Hatzakis, Diane Doud Miller, Jonathan Fresnedo-Ramirez, Jessica L.
-Cooperstone
+-   [Read in Data](#read-in-data)
+    -   [Metabolomics](#metabolomics)
+        -   [LCMS (+)](#lcms-)
+            -   [Address NAs](#address-nas)
+            -   [Missing Data Imputation](#missing-data-imputation)
+        -   [LCMS (-)](#lcms--)
+            -   [Address NAs](#address-nas-1)
+            -   [Missing Data Imputation](#missing-data-imputation-1)
+        -   [NMR](#nmr)
+            -   [Address NAs](#address-nas-2)
+            -   [Missing Data Imputation](#missing-data-imputation-2)
+    -   [Genomics](#genomics)
+-   [Metabolomics Data Visualization](#metabolomics-data-visualization)
+    -   [Boxplots](#boxplots)
+        -   [LCMS(+)](#lcms)
+            -   [Prepare Data Frame](#prepare-data-frame)
+            -   [Raw](#raw)
+            -   [Transformed](#transformed)
+        -   [LCMS(-)](#lcms--1)
+            -   [Prepare Data Frame](#prepare-data-frame-1)
+            -   [Raw](#raw-1)
+            -   [Transformed](#transformed-1)
+        -   [NMR](#nmr-1)
+            -   [Prepare Data Frame](#prepare-data-frame-2)
+            -   [Raw](#raw-2)
+            -   [Transformed](#transformed-2)
+    -   [PCA](#pca)
+        -   [Prepare Data](#prepare-data)
+        -   [With Pooled QCs](#with-pooled-qcs)
+            -   [LCMS(+)](#lcms-1)
+            -   [LCMS(-)](#lcms--2)
+        -   [Regular](#regular)
+            -   [Remove Pooled QCs](#remove-pooled-qcs)
+            -   [LCMS(+)](#lcms-2)
+            -   [LCMS(-)](#lcms--3)
+            -   [NMR](#nmr-2)
+-   [Data Prep for mGWAS](#data-prep-for-mgwas)
+    -   [Metabolomics](#metabolomics-1)
+        -   [Divide into Population
+            Subsets](#divide-into-population-subsets)
+            -   [LCMS(+)](#lcms-3)
+            -   [LCMS(-)](#lcms--4)
+            -   [NMR](#nmr-3)
+    -   [Genomics](#genomics-1)
+        -   [Divide into Population
+            Subsets](#divide-into-population-subsets-1)
+            -   [Diverse](#diverse-3)
+            -   [Pedigree](#pedigree-3)
+            -   [Progeny](#progeny-3)
+        -   [Model Parameterization](#model-parameterization)
+            -   [SNP PCA Plots](#snp-pca-plots)
+            -   [AGHmatrix Kinship Matrix](#aghmatrix-kinship-matrix)
+        -   [Divide Chromosomes](#divide-chromosomes)
+            -   [Diverse](#diverse-6)
+            -   [Pedigree](#pedigree-6)
+            -   [Progeny](#progeny-5)
+
+**Publication Details:** Title: Integrating genomics and multiplatform
+metabolomics enables metabolite QTL detection in breeding-relevant apple
+germplasm
+
+Authors: Emma A. Bilbrey1, Kathryn Williamson2, Emmanuel Hatzakis2,
+Diane Doud Miller3, Jonathan Fresnedo-Ramírez3, Jessica L.
+Cooperstone1,2,\*
+
+1 Department of Horticulture and Crop Science, The Ohio State
+University, Columbus, OH, USA, 43210
+
+2 Department of Food Science and Technology, The Ohio State University,
+Columbus, OH, USA, 43210
+
+3 Department of Horticulture and Crop Science, The Ohio State
+University, Wooster, OH, USA, 44691
+
+\*Corresponding Author: 2001 Fyffe Court, Columbus, OH 43210, USA; Tel:
++614 2922843; Email: <cooperstone.1@osu.edu>
+
+Journal: New Phytologist
+
+DOI: <https://doi.org/10.1111/nph.17693>
+
+-   Apple (Malus × domestica) has commercial and nutritional value, but
+    breeding constraints of tree crops limit varietal improvement.
+    Marker-assisted selection minimises these drawbacks, but breeders
+    lack applications for targeting fruit phytochemicals. To understand
+    genotype–phytochemical associations in apples, we have developed a
+    high-throughput integration strategy for genomic and multiplatform
+    metabolomics data.
+-   Here, 124 apple genotypes, including members of three
+    pedigree-connected breeding families alongside diverse cultivars and
+    wild selections, were genotyped and phenotyped. Metabolite
+    genome-wide association studies (mGWAS) were conducted with c. 10
+    000 single nucleotide polymorphisms and phenotypic data acquired via
+    LC–MS and 1H NMR untargeted metabolomics. Putative metabolite
+    quantitative trait loci (mQTL) were then validated via
+    pedigree-based analyses (PBA).
+-   Using our developed method, 519, 726 and 177 putative mQTL were
+    detected in LC–MS positive and negative ionisation modes, and NMR,
+    respectively. mQTL were indicated on each chromosome, with hotspots
+    on linkage groups 16 and 17. A chlorogenic acid mQTL was discovered
+    on chromosome 17 via mGWAS and validated with a two-step PBA,
+    enabling discovery of novel candidate gene–metabolite relationships.
+-   Complementary data from three metabolomics approaches and dual
+    genomics analyses increased confidence in validity of compound
+    annotation and mQTL detection. Our platform demonstrates the utility
+    of multiomic integration to advance data-driven, phytochemical-based
+    plant breeding.
 
 To understand genotype-phytochemical associations in apple fruit, we
 have developed a high-throughput integration strategy for genomic and
@@ -15,7 +119,7 @@ multi-platform metabolomics data.
 **Context**: 124 apple genotypes, including members of three
 pedigree-connected breeding families alongside diverse cultivars and
 wild selections, were genotyped and phenotyped. Metabolite genome-wide
-association studies (mGWAS) were conducted with ~10,000 single
+association studies (mGWAS) were conducted with \~10,000 single
 nucleotide polymorphisms alongside phenotypic data acquired via liquid
 chromatography mass spectrometry (LC-MS) and 1H nuclear magnetic
 resonance (NMR) untargeted metabolomics. Putative metabolite
@@ -51,12 +155,11 @@ repository titled, “mGWAS Results Processing and Visualization”.
 In this data set, rows are samples (n=124 plus 33 pooled QCs) and
 columns are metabolomic features in the format m/z\_retentiontime
 (n=4,872) plus 3 rows of metadata: Genotype, Number (assigned number to
-each genotype), Label (general apple
-category)
+each genotype), Label (general apple category)
 
 ``` r
-PosDataQCsRaw <- read_excel("TableSupplement.xlsx", # Excel file with data
-                            sheet = "Table S6 LCMS Pos Data", # sheet within the excel file with data
+PosDataQCsRaw <- read_excel("nph17693-sup-0002-supinfo.xlsx", # Excel file with data
+                            sheet = "Table S9 LCMS Pos Data", # sheet within the excel file with data
                             col_names = TRUE, # we want to keep the first row as column names
                             trim_ws = TRUE, # we want to trim any white space
                             na = "0") # we want all zero values to be changed to 'NA'
@@ -69,22 +172,21 @@ dim(PosDataQCsRaw)
 head_short(PosDataQCsRaw)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   Genotype Number Label   `235.16921223973_4.9266331… `251.16328937515_4.066669…
-    ##   <chr>    <chr>  <chr>                         <dbl>                      <dbl>
-    ## 1 HC       1      Pedigr…                       1483.                      2754.
-    ## 2 PR       2      Diverse                       5494.                      8457.
-    ## 3 W03      3      Diverse                       7170.                      6141.
-    ## 4 GR       4      Pedigr…                       1311.                      2317.
-    ## 5 FJ       5      Pedigr…                       1631.                      2526.
+    ## # A tibble: 5 × 5
+    ##   Genotype Number Label    `235.16921223973_4.92663319209042` `251.16328937515_…
+    ##   <chr>    <chr>  <chr>                                 <dbl>              <dbl>
+    ## 1 HC       1      Pedigree                              1483.              2754.
+    ## 2 PR       2      Diverse                               5494.              8457.
+    ## 3 W03      3      Diverse                               7170.              6141.
+    ## 4 GR       4      Pedigree                              1311.              2317.
+    ## 5 FJ       5      Pedigree                              1631.              2526.
 
 #### Address NAs
 
 Because this data is taken from a larger set of data, some features in
 this set of 124 samples may have measurements in the pooled QC but not
 in the samples we are studying here. Therefore, we need to get rid of
-features that have all NAs before we
-impute.
+features that have all NAs before we impute.
 
 ``` r
 # Make a vector containing the number of NAs in each column. Only count NAs from samples that are not QCs
@@ -102,8 +204,7 @@ In the case of the Pos data, 6 columns were removed.
 #### Missing Data Imputation
 
 In LCMS (+/-), missing values for each feature are imputed with the
-minimum value divided by
-2.
+minimum value divided by 2.
 
 ``` r
 PosDataQCsRawImputed <- PosDataQCsRawVar # getting our data frame ready for the apply function
@@ -119,26 +220,25 @@ dim(PosDataQCsRawImputed)
 head_short(PosDataQCsRawImputed)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   Genotype Number Label   `235.16921223973_4.9266331… `251.16328937515_4.066669…
-    ##   <chr>    <chr>  <chr>                         <dbl>                      <dbl>
-    ## 1 HC       1      Pedigr…                       1483.                      2754.
-    ## 2 PR       2      Diverse                       5494.                      8457.
-    ## 3 W03      3      Diverse                       7170.                      6141.
-    ## 4 GR       4      Pedigr…                       1311.                      2317.
-    ## 5 FJ       5      Pedigr…                       1631.                      2526.
+    ## # A tibble: 5 × 5
+    ##   Genotype Number Label    `235.16921223973_4.92663319209042` `251.16328937515_…
+    ##   <chr>    <chr>  <chr>                                 <dbl>              <dbl>
+    ## 1 HC       1      Pedigree                              1483.              2754.
+    ## 2 PR       2      Diverse                               5494.              8457.
+    ## 3 W03      3      Diverse                               7170.              6141.
+    ## 4 GR       4      Pedigree                              1311.              2317.
+    ## 5 FJ       5      Pedigree                              1631.              2526.
 
 ### LCMS (-)
 
 In this data set, rows are samples (n=124 plus 33 pooled QCs) and
 columns are metabolomic features in the format m/z\_retentiontime
 (n=4,703) plus 3 rows of metadata: Genotype, Number (assigned number to
-each genotype), Label (general apple
-category)
+each genotype), Label (general apple category)
 
 ``` r
-NegDataQCsRaw <- read_excel("TableSupplement.xlsx", # Excel file with data
-                            sheet = "Table S7 LCMS Neg Data", # sheet within the excel file with data
+NegDataQCsRaw <- read_excel("nph17693-sup-0002-supinfo.xlsx", # Excel file with data
+                            sheet = "Table S10 LCMS Neg Data", # sheet within the excel file with data
                             col_names = TRUE, # we want to keep the first row as column names
                             trim_ws = TRUE, # we want to trim any white space
                             na = "0") # we want all zero values to be changed to 'NA'
@@ -151,7 +251,7 @@ dim(NegDataQCsRaw)
 head_short(NegDataQCsRaw)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label    `885.2037_2.98177` `525.1583_3.24969`
     ##   <chr>    <chr>  <chr>                 <dbl>              <dbl>
     ## 1 HC       1      Pedigree             30748.              2493.
@@ -165,8 +265,7 @@ head_short(NegDataQCsRaw)
 Because this data is taken from a larger set of data, some features in
 this set of 124 samples may have measurements in the pooled QC but not
 in the samples we are studying here. Therefore, we need to get rid of
-features that have all NAs before we
-impute.
+features that have all NAs before we impute.
 
 ``` r
 # Make a vector containing the number of NAs in each column. Only count NAs from samples that are not QCs
@@ -184,8 +283,7 @@ In the case of the Neg data, no columns were removed.
 #### Missing Data Imputation
 
 In LCMS (+/-), missing values for each feature are imputed with the
-minimum value divided by
-2.
+minimum value divided by 2.
 
 ``` r
 NegDataQCsRawImputed <- NegDataQCsRawVar # getting our data frame ready for the apply function
@@ -201,7 +299,7 @@ dim(NegDataQCsRawImputed)
 head_short(NegDataQCsRawImputed)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label    `885.2037_2.98177` `525.1583_3.24969`
     ##   <chr>    <chr>  <chr>                 <dbl>              <dbl>
     ## 1 HC       1      Pedigree             30748.              2493.
@@ -218,12 +316,11 @@ is typical of NMR metabolomics to have a much smaller number of
 metabolomic features, here, bins. NMR values were adjusted with an
 affine transformation in the package mrbin, so there are no NAs that
 need to be imputed. There are also 3 rows of metadata: Genotype, Number
-(assigned number to each genotype), Label (general apple
-category)
+(assigned number to each genotype), Label (general apple category)
 
 ``` r
-NMRDataQCRaw <- read_excel("TableSupplement.xlsx", # Excel file with data
-                            sheet = "Table S8 1D NMR Data", # sheet within the excel file with data
+NMRDataQCRaw <- read_excel("nph17693-sup-0002-supinfo.xlsx", # Excel file with data
+                            sheet = "Table S11 1D NMR Data", # sheet within the excel file with data
                             col_names = TRUE, # we want to keep the first row as column names
                             trim_ws = TRUE, # we want to trim any white space
                             na = "0") # we want all zero values to be changed to 'NA'
@@ -236,7 +333,7 @@ dim(NMRDataQCRaw)
 head_short(NMRDataQCRaw)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label    `9.45,9.44` `9.44,9.43`
     ##   <chr>    <chr>  <chr>          <dbl>       <dbl>
     ## 1 HC       1      Pedigree       77.3       0.935 
@@ -249,8 +346,7 @@ head_short(NMRDataQCRaw)
 
 Because of the way the 1D NMR data was processed using the package
 mrbin, there should be no NAs, even though this data is taken from a
-larger data set. We will double check here, though, before
-continuing.
+larger data set. We will double check here, though, before continuing.
 
 ``` r
 # Make a vector containing the number of NAs in each column. Only count NAs from samples that are not the QC
@@ -277,7 +373,7 @@ In this data set of genotype calls, rows are SNPs (n=11,165) and columns
 are samples (n=124).
 
 ``` r
-SNPData <- read_excel("TableSupplement.xlsx", # Excel file with data
+SNPData <- read_excel("nph17693-sup-0002-supinfo.xlsx", # Excel file with data
                       sheet = "Table S2 mGWAS SNP Data", # sheet within the excel file with data
                       col_names = TRUE, # we want to keep the first row as column names
                       trim_ws = TRUE, # we want to trim any white space
@@ -291,7 +387,7 @@ dim(SNPData)
 head_short(SNPData)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Locus        Index Linkage_Group Genetic_Distance    HC
     ##   <chr>        <dbl>         <dbl>            <dbl> <dbl>
     ## 1 AFL2         12096            14             37.5    -1
@@ -321,7 +417,7 @@ PosDataQCsRawImputed_long <- PosDataQCsRawImputed %>%
 head_short(PosDataQCsRawImputed_long)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label    MassRT                            Abundance
     ##   <chr>    <chr>  <chr>    <chr>                                 <dbl>
     ## 1 HC       1      Pedigree 235.16921223973_4.92663319209042      1483.
@@ -331,8 +427,7 @@ head_short(PosDataQCsRawImputed_long)
     ## 5 HC       1      Pedigree 305.174095751415_4.55409950773556     1958.
 
 Next, we set “Label” as a factor, so it goes in the order we specify in
-“levels”. This will be important for the colors and legend in our
-plots
+“levels”. This will be important for the colors and legend in our plots
 
 ``` r
 PosDataQCsRawImputed_long$Label <- factor(PosDataQCsRawImputed_long$Label,
@@ -399,7 +494,7 @@ PosDataQCsLog2Imputed_long <- transmute(PosDataQCsRawImputed_long,
 head_short(PosDataQCsLog2Imputed_long)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label   MassRT                            Abundance
     ##   <fct>    <chr>  <fct>   <chr>                                 <dbl>
     ## 1 PR       2      Diverse 235.16921223973_4.92663319209042       12.4
@@ -452,7 +547,7 @@ NegDataQCsRawImputed_long <- NegDataQCsRawImputed %>%
 head_short(NegDataQCsRawImputed_long)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label    MassRT            Abundance
     ##   <chr>    <chr>  <chr>    <chr>                 <dbl>
     ## 1 HC       1      Pedigree 885.2037_2.98177     30748.
@@ -462,8 +557,7 @@ head_short(NegDataQCsRawImputed_long)
     ## 5 HC       1      Pedigree 600.12641_2.10625    27995.
 
 Next, we set “Label” as a factor, so it goes in the order we specify in
-“levels”. This will be important for the colors and legend in our
-plots
+“levels”. This will be important for the colors and legend in our plots
 
 ``` r
 NegDataQCsRawImputed_long$Label <- factor(NegDataQCsRawImputed_long$Label,
@@ -530,7 +624,7 @@ NegDataQCsLog2Imputed_long <- transmute(NegDataQCsRawImputed_long,
 head_short(NegDataQCsLog2Imputed_long)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label   MassRT            Abundance
     ##   <fct>    <chr>  <fct>   <chr>                 <dbl>
     ## 1 PR       2      Diverse 885.2037_2.98177       16.5
@@ -583,7 +677,7 @@ NMRDataQCRawVar_long <- NMRDataQCRawVar %>%
 head_short(NMRDataQCRawVar_long)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label    Bin       Intensity
     ##   <chr>    <chr>  <chr>    <chr>         <dbl>
     ## 1 HC       1      Pedigree 9.45,9.44    77.3  
@@ -593,8 +687,7 @@ head_short(NMRDataQCRawVar_long)
     ## 5 HC       1      Pedigree 9.38,9.37   145.
 
 Next, we set “Label” as a factor, so it goes in the order we specify in
-“levels”. This will be important for the colors and legend in our
-plots
+“levels”. This will be important for the colors and legend in our plots
 
 ``` r
 NMRDataQCRawVar_long$Label <- factor(NMRDataQCRawVar_long$Label,
@@ -665,7 +758,7 @@ NMRDataQCLog2_long <- transmute(NMRDataQCRawVar_long,
 head_short(NMRDataQCLog2_long)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label   Bin       Intensity
     ##   <fct>    <chr>  <fct>   <chr>         <dbl>
     ## 1 PR       2      Diverse 9.45,9.44    1.34  
@@ -720,14 +813,14 @@ PosDataQCsLog2Imputed_wide <- PosDataQCsLog2Imputed_long %>%
 head_short(PosDataQCsLog2Imputed_wide)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   Genotype Number Label   `235.16921223973_4.9266331… `251.16328937515_4.066669…
-    ##   <fct>    <chr>  <fct>                         <dbl>                      <dbl>
-    ## 1 PR       2      Diverse                       12.4                        13.0
-    ## 2 W03      3      Diverse                       12.8                        12.6
-    ## 3 Y01      7      Diverse                       10.8                        11.2
-    ## 4 RS       11     Diverse                        9.77                       11.9
-    ## 5 CHC      12     Diverse                        9.65                       11.3
+    ## # A tibble: 5 × 5
+    ##   Genotype Number Label   `235.16921223973_4.92663319209042` `251.16328937515_4…
+    ##   <fct>    <chr>  <fct>                                <dbl>               <dbl>
+    ## 1 PR       2      Diverse                              12.4                 13.0
+    ## 2 W03      3      Diverse                              12.8                 12.6
+    ## 3 Y01      7      Diverse                              10.8                 11.2
+    ## 4 RS       11     Diverse                               9.77                11.9
+    ## 5 CHC      12     Diverse                               9.65                11.3
 
 ``` r
 NegDataQCsLog2Imputed_wide <- NegDataQCsLog2Imputed_long %>% 
@@ -736,7 +829,7 @@ NegDataQCsLog2Imputed_wide <- NegDataQCsLog2Imputed_long %>%
 head_short(NegDataQCsLog2Imputed_wide)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label   `885.2037_2.98177` `525.1583_3.24969`
     ##   <fct>    <chr>  <fct>                <dbl>              <dbl>
     ## 1 PR       2      Diverse               16.5               12.1
@@ -752,7 +845,7 @@ NMRDataQCLog2_wide <- NMRDataQCLog2_long %>%
 head_short(NMRDataQCLog2_wide)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label   `9.45,9.44` `9.44,9.43`
     ##   <fct>    <chr>  <fct>         <dbl>       <dbl>
     ## 1 PR       2      Diverse       1.34       0.0193
@@ -762,8 +855,7 @@ head_short(NMRDataQCLog2_wide)
     ## 5 CHC      12     Diverse       1.50       0.545
 
 Next, we set “Label” as a factor, so it goes in the order we specify in
-“levels”. This will be important for the colors and legend in our
-plots
+“levels”. This will be important for the colors and legend in our plots
 
 ``` r
 PosQCLabel <- factor(PosDataQCsLog2Imputed_wide$Label,
@@ -789,8 +881,7 @@ experiments.
 #### LCMS(+)
 
 Centering and Scaling make it so that features that are more abundant
-are not seen as more important in the
-PCA.
+are not seen as more important in the PCA.
 
 ``` r
 pcaPosQC = prcomp(PosDataQCsLog2Imputed_wide[,-c(1:3)], # we dont want to include metadata
@@ -844,8 +935,7 @@ ggplot(data=pcaPosQCX,
 #### LCMS(-)
 
 Centering and Scaling make it so that features that are more abundant
-are not seen as more important in the
-PCA.
+are not seen as more important in the PCA.
 
 ``` r
 pcaNegQC = prcomp(NegDataQCsLog2Imputed_wide[,-c(1:3)], # we dont want to include metadata
@@ -928,8 +1018,7 @@ dim(NMRDataLog2_wide) # the number of rows should now be 124 (without the 1 QC)
     ## [1] 124 759
 
 Next, we set “Label” as a factor, so it goes in the order we specify in
-“levels”. This will be important for the colors and legend in our
-plots
+“levels”. This will be important for the colors and legend in our plots
 
 ``` r
 PosLabel <- factor(PosDataLog2Imputed_wide$Label,
@@ -949,8 +1038,7 @@ NMRLabel <- factor(NMRDataLog2_wide$Label,
 #### LCMS(+)
 
 Centering and Scaling make it so that features that are more abundant
-are not seen as more important in the
-PCA.
+are not seen as more important in the PCA.
 
 ``` r
 pcaPos = prcomp(PosDataLog2Imputed_wide[,-c(1:3)], # we dont want to include metadata
@@ -1004,8 +1092,7 @@ ggplot(data=pcaPosX,
 #### LCMS(-)
 
 Centering and Scaling make it so that features that are more abundant
-are not seen as more important in the
-PCA.
+are not seen as more important in the PCA.
 
 ``` r
 pcaNeg <- prcomp(NegDataLog2Imputed_wide[,-c(1:3)], # we dont want to include metadata
@@ -1055,9 +1142,11 @@ ggplot(data=pcaNegX,
 ```
 
 ![](Pt1_DataVisAndmGWASPrep_files/figure-gfm/unnamed-chunk-51-1.png)<!-- -->
-\#\#\#\# NMR Centering and Scaling make it so that features that are
-more abundant are not seen as more important in the
-PCA.
+
+#### NMR
+
+Centering and Scaling make it so that features that are more abundant
+are not seen as more important in the PCA.
 
 ``` r
 pcaNMR <- prcomp(NMRDataLog2_wide[,-c(1:3)], # we dont want to include metadata
@@ -1141,14 +1230,14 @@ PosDiverseRaw4mGWAS <- PosDataQCsRawVar %>%
 head_short(PosDiverseRaw4mGWAS)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   Genotype Number Label   `235.16921223973_4.9266331… `251.16328937515_4.066669…
-    ##   <chr>    <chr>  <chr>                         <dbl>                      <dbl>
-    ## 1 HC       1      Pedigr…                       1483.                      2754.
-    ## 2 PR       2      Diverse                       5494.                      8457.
-    ## 3 W03      3      Diverse                       7170.                      6141.
-    ## 4 GR       4      Pedigr…                       1311.                      2317.
-    ## 5 FJ       5      Pedigr…                       1631.                      2526.
+    ## # A tibble: 5 × 5
+    ##   Genotype Number Label    `235.16921223973_4.92663319209042` `251.16328937515_…
+    ##   <chr>    <chr>  <chr>                                 <dbl>              <dbl>
+    ## 1 HC       1      Pedigree                              1483.              2754.
+    ## 2 PR       2      Diverse                               5494.              8457.
+    ## 3 W03      3      Diverse                               7170.              6141.
+    ## 4 GR       4      Pedigree                              1311.              2317.
+    ## 5 FJ       5      Pedigree                              1631.              2526.
 
 ``` r
 dim(PosDiverseRaw4mGWAS)
@@ -1167,14 +1256,14 @@ PosPedigreeRaw4mGWAS <- PosDataQCsRawVar %>%
 head_short(PosPedigreeRaw4mGWAS)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   Genotype Number Label   `235.16921223973_4.9266331… `251.16328937515_4.066669…
-    ##   <chr>    <chr>  <chr>                         <dbl>                      <dbl>
-    ## 1 HC       1      Pedigr…                       1483.                      2754.
-    ## 2 GR       4      Pedigr…                       1311.                      2317.
-    ## 3 FJ       5      Pedigr…                       1631.                      2526.
-    ## 4 SH10OH   6      Pedigr…                       3762.                      3822.
-    ## 5 S16LOH   8      Pedigr…                       1121.                      2779.
+    ## # A tibble: 5 × 5
+    ##   Genotype Number Label    `235.16921223973_4.92663319209042` `251.16328937515_…
+    ##   <chr>    <chr>  <chr>                                 <dbl>              <dbl>
+    ## 1 HC       1      Pedigree                              1483.              2754.
+    ## 2 GR       4      Pedigree                              1311.              2317.
+    ## 3 FJ       5      Pedigree                              1631.              2526.
+    ## 4 SH10OH   6      Pedigree                              3762.              3822.
+    ## 5 S16LOH   8      Pedigree                              1121.              2779.
 
 ``` r
 dim(PosPedigreeRaw4mGWAS)
@@ -1190,14 +1279,14 @@ PosProgenyRaw4mGWAS <- PosDataQCsRawVar %>%
 head_short(PosProgenyRaw4mGWAS)
 ```
 
-    ## # A tibble: 5 x 5
-    ##   Genotype Number Label   `235.16921223973_4.9266331… `251.16328937515_4.066669…
-    ##   <chr>    <chr>  <chr>                         <dbl>                      <dbl>
-    ## 1 EC       9      Progeny                       2515.                      3322.
-    ## 2 D00      13     Progeny                       3941.                      3985.
-    ## 3 D01      14     Progeny                       3241.                      3022.
-    ## 4 D02      15     Progeny                       1765.                      2674.
-    ## 5 D03      16     Progeny                       2214.                      2264.
+    ## # A tibble: 5 × 5
+    ##   Genotype Number Label   `235.16921223973_4.92663319209042` `251.16328937515_4…
+    ##   <chr>    <chr>  <chr>                                <dbl>               <dbl>
+    ## 1 EC       9      Progeny                              2515.               3322.
+    ## 2 D00      13     Progeny                              3941.               3985.
+    ## 3 D01      14     Progeny                              3241.               3022.
+    ## 4 D02      15     Progeny                              1765.               2674.
+    ## 5 D03      16     Progeny                              2214.               2264.
 
 ``` r
 dim(PosProgenyRaw4mGWAS)
@@ -1220,7 +1309,7 @@ NegDiverseRaw4mGWAS <- NegDataQCsRawVar %>%
 head_short(NegDiverseRaw4mGWAS)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label    `885.2037_2.98177` `525.1583_3.24969`
     ##   <chr>    <chr>  <chr>                 <dbl>              <dbl>
     ## 1 HC       1      Pedigree             30748.              2493.
@@ -1246,7 +1335,7 @@ NegPedigreeRaw4mGWAS <- NegDataQCsRawVar %>%
 head_short(NegPedigreeRaw4mGWAS)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label    `885.2037_2.98177` `525.1583_3.24969`
     ##   <chr>    <chr>  <chr>                 <dbl>              <dbl>
     ## 1 HC       1      Pedigree             30748.              2493.
@@ -1269,7 +1358,7 @@ NegProgenyRaw4mGWAS <- NegDataQCsRawVar %>%
 head_short(NegProgenyRaw4mGWAS)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label   `885.2037_2.98177` `525.1583_3.24969`
     ##   <chr>    <chr>  <chr>                <dbl>              <dbl>
     ## 1 EC       9      Progeny             48917.              3311.
@@ -1299,7 +1388,7 @@ NMRDiverseRaw4mGWAS <- NMRDataQCRawVar %>%
 head_short(NMRDiverseRaw4mGWAS)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label    `9.45,9.44` `9.44,9.43`
     ##   <chr>    <chr>  <chr>          <dbl>       <dbl>
     ## 1 HC       1      Pedigree       77.3       0.935 
@@ -1325,7 +1414,7 @@ NMRPedigreeRaw4mGWAS <- NMRDataQCRawVar %>%
 head_short(NMRPedigreeRaw4mGWAS)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label    `9.45,9.44` `9.44,9.43`
     ##   <chr>    <chr>  <chr>          <dbl>       <dbl>
     ## 1 HC       1      Pedigree       77.3        0.935
@@ -1348,7 +1437,7 @@ NMRProgenyRaw4mGWAS <- NMRDataQCRawVar %>%
 head_short(NMRProgenyRaw4mGWAS)
 ```
 
-    ## # A tibble: 5 x 5
+    ## # A tibble: 5 × 5
     ##   Genotype Number Label   `9.45,9.44` `9.44,9.43`
     ##   <chr>    <chr>  <chr>         <dbl>       <dbl>
     ## 1 EC       9      Progeny      128.          123.
@@ -1386,8 +1475,7 @@ SNPDataDiverse <- SNPData
 #### Pedigree
 
 We can take the 4 columns of metadata and bind them to the SNP data for
-the samples that are a part of the
-Pedigree
+the samples that are a part of the Pedigree
 
 ``` r
 SNPDataPedigree <- cbind(SNPData[,1:4],SNPData[,colnames(SNPData) %in% PosPedigreeRaw4mGWAS$Genotype])
@@ -1410,8 +1498,7 @@ dim(SNPDataPedigree) # The number of columns should be the metadata + samples (4
 #### Progeny
 
 We can take the 4 columns of metadata and bind them to the SNP data for
-the samples that are a part of the Progeny
-set
+the samples that are a part of the Progeny set
 
 ``` r
 SNPDataProgeny <- cbind(SNPData[,1:4],SNPData[,colnames(SNPData) %in% PosProgenyRaw4mGWAS$Genotype])
@@ -1453,8 +1540,7 @@ within each subset.
 NAs are acceptable for the mGWAS. We have a threshold for missing data.
 However, we will need them to be imputed in determining the number of
 principal components to use in the mGWAS model below in the section DATA
-PREP FOR
-mGWAS.
+PREP FOR mGWAS.
 
 ``` r
 SNPDataDiverseImputed <- impute.knn(as.matrix(SNPDataDiverse[,5:ncol(SNPDataDiverse)]))$data # 5 is the first line that isn't metadata
@@ -1574,8 +1660,7 @@ ggplot(dfpvxDiverse,
 NAs are acceptable for the mGWAS. We have a threshold for missing data.
 However, we will need them to be imputed in determining the number of
 principal components to use in the mGWAS model below in the section DATA
-PREP FOR
-mGWAS.
+PREP FOR mGWAS.
 
 ``` r
 SNPDataPedigreeImputed <- impute.knn(as.matrix(SNPDataPedigree[,5:ncol(SNPDataPedigree)]))$data # 5 is the first line that isn't metadata
@@ -1692,8 +1777,7 @@ ggplot(dfpvxPedigree,
 NAs are acceptable for the mGWAS. We have a threshold for missing data.
 However, we will need them to be imputed in determining the number of
 principal components to use in the mGWAS model below in the section DATA
-PREP FOR
-mGWAS.
+PREP FOR mGWAS.
 
 ``` r
 SNPDataProgenyImputed <- impute.knn(as.matrix(SNPDataProgeny[,5:ncol(SNPDataProgeny)]))$data # 5 is the first line that isn't metadata;
@@ -1824,8 +1908,8 @@ tracking parentage through the apple genotypes. 0’s represent an unknown
 parent.
 
 ``` r
-Parentage4Amat <- as.data.frame(read_excel("TableSupplement.xlsx", # Excel file with data
-                                           sheet = "Table S11 Parentage for Amat",
+Parentage4Amat <- as.data.frame(read_excel("nph17693-sup-0002-supinfo.xlsx", # Excel file with data
+                                           sheet = "Table S6 Parentage for Amat",
                                            col_names = TRUE,
                                            trim_ws = TRUE))
 dim(Parentage4Amat)
@@ -1859,12 +1943,11 @@ do not have both SNP and metabolomic data for but they are helpful in
 tracking parentage through the apple genotypes. 0’s represent an unknown
 parent. 2 genotypes are included that have SNP data but no metabolomics
 data. Pedigree individuals used in Amat that dont have SNPs are not
-included
-here.
+included here.
 
 ``` r
-SNPs4Gmat <- data.frame(read_excel("TableSupplement.xlsx", # Excel file with data
-                                   sheet = "Table S12 SNPs for Gmat",
+SNPs4Gmat <- data.frame(read_excel("nph17693-sup-0002-supinfo.xlsx", # Excel file with data
+                                   sheet = "Table S7 SNPs for Gmat",
                                    col_names = TRUE,
                                    trim_ws = TRUE,
                                    na = "NA"),
@@ -1910,18 +1993,18 @@ Gmat <- Gmatrix(SNPmatrix = as.matrix(SNPs4Gmat),
     ##  Initial:  11165 SNPs 
     ##  Final:  10345  SNPs ( 820  SNPs removed) 
     ##  
-    ## Completed! Time = 3.258  seconds
+    ## Completed! Time = 1.915  seconds
 
 ``` r
 head_short(Gmat)
 ```
 
-    ##             HC           PR         W03          GR           FJ
-    ## HC   0.7456927 -0.128920947 -0.14356125 -0.25023071 -0.306223611
-    ## PR  -0.1289209  0.999561131  0.08653656 -0.05203814 -0.009001988
-    ## W03 -0.1435613  0.086536557  1.22692254 -0.05540962 -0.049412610
-    ## GR  -0.2502307 -0.052038139 -0.05540962  0.75823051 -0.213510669
-    ## FJ  -0.3062236 -0.009001988 -0.04941261 -0.21351067  0.999090642
+    ##             HC          PR         W03          GR          FJ
+    ## HC   0.7929883 -0.13054710 -0.14399537 -0.25991345 -0.31766763
+    ## PR  -0.1305471  1.05427354  0.09523196 -0.05426794 -0.00778921
+    ## W03 -0.1439954  0.09523196  1.29750525 -0.05585522 -0.04836200
+    ## GR  -0.2599135 -0.05426794 -0.05585522  0.79689746 -0.22472649
+    ## FJ  -0.3176676 -0.00778921 -0.04836200 -0.22472649  1.05277668
 
 ##### H Matrix
 
@@ -1950,12 +2033,12 @@ HmatRev <- Rev(Hmat,
 head_short(HmatRev)
 ```
 
-    ##             HC           PR         W03          GR           FJ
-    ## HC   0.7459428 -0.128941868 -0.14356679 -0.25067343 -0.305919149
-    ## PR  -0.1289786  0.999607784  0.08656524 -0.05190834 -0.009136919
-    ## W03 -0.1435742  0.086564016  1.22696581 -0.05518164 -0.049733681
-    ## GR  -0.2503340 -0.052040692 -0.05530246  0.75853824 -0.213846792
-    ## FJ  -0.3065827 -0.009037165 -0.04962891 -0.21319674  0.999218534
+    ##             HC          PR         W03          GR          FJ
+    ## HC   0.7929883 -0.13054710 -0.14399537 -0.25991345 -0.31766763
+    ## PR  -0.1305471  1.05427354  0.09523196 -0.05426794 -0.00778921
+    ## W03 -0.1439954  0.09523196  1.29750525 -0.05585522 -0.04836200
+    ## GR  -0.2599135 -0.05426794 -0.05585522  0.79689746 -0.22472649
+    ## FJ  -0.3176676 -0.00778921 -0.04836200 -0.22472649  1.05277668
 
 Next, we need to remove extra individuals that were included to help
 show the relationships between the genotypes but are those that we do
@@ -1974,20 +2057,19 @@ dim(HmatSub)
 head_short(HmatSub)
 ```
 
-    ##             HC           PR         W03          GR           FJ
-    ## HC   0.7459428 -0.128941868 -0.14356679 -0.25067343 -0.305919149
-    ## PR  -0.1289786  0.999607784  0.08656524 -0.05190834 -0.009136919
-    ## W03 -0.1435742  0.086564016  1.22696581 -0.05518164 -0.049733681
-    ## GR  -0.2503340 -0.052040692 -0.05530246  0.75853824 -0.213846792
-    ## FJ  -0.3065827 -0.009037165 -0.04962891 -0.21319674  0.999218534
+    ##             HC          PR         W03          GR          FJ
+    ## HC   0.7929883 -0.13054710 -0.14399537 -0.25991345 -0.31766763
+    ## PR  -0.1305471  1.05427354  0.09523196 -0.05426794 -0.00778921
+    ## W03 -0.1439954  0.09523196  1.29750525 -0.05585522 -0.04836200
+    ## GR  -0.2599135 -0.05426794 -0.05585522  0.79689746 -0.22472649
+    ## FJ  -0.3176676 -0.00778921 -0.04836200 -0.22472649  1.05277668
 
 ##### Divide into Population Sets
 
 ###### Diverse
 
 This will be all 124 that is in the Hmat now. We will just rename to
-keep things
-consistent
+keep things consistent
 
 ``` r
 HmatDiverse <- HmatSub
@@ -2001,12 +2083,12 @@ HmatPedigree <- HmatSub[rownames(HmatSub) %in% PosPedigreeRaw4mGWAS$Genotype,
 head_short(HmatPedigree)
 ```
 
-    ##                  HC         GR         FJ     SH10OH      S16LOH
-    ## HC      0.745942824 -0.2506734 -0.3059191 -0.2813913  0.00150015
-    ## GR     -0.250334012  0.7585382 -0.2138468  0.3649945 -0.24952846
-    ## FJ     -0.306582685 -0.2131967  0.9992185 -0.2028022 -0.16852967
-    ## SH10OH -0.280915009  0.3648143 -0.2031552  0.9287229 -0.21979417
-    ## S16LOH  0.001570234 -0.2496752 -0.1685254 -0.2198551  0.74130984
+    ##                  HC         GR         FJ     SH10OH       S16LOH
+    ## HC      0.792988342 -0.2599135 -0.3176676 -0.2907577  0.006874464
+    ## GR     -0.259913451  0.7968975 -0.2247265  0.3840528 -0.261818289
+    ## FJ     -0.317667628 -0.2247265  1.0527767 -0.2119752 -0.175780529
+    ## SH10OH -0.290757650  0.3840528 -0.2119752  0.9789365 -0.228913643
+    ## S16LOH  0.006874464 -0.2618183 -0.1757805 -0.2289136  0.782844019
 
 ``` r
 dim(HmatPedigree) # The number of rows and columns should be the number of pedigree genotypes (98)
@@ -2023,11 +2105,11 @@ head_short(HmatProgeny)
 ```
 
     ##            EC       D00       D01       D02       D03
-    ## EC  0.7801709 0.2214487 0.1460617 0.2501726 0.2889483
-    ## D00 0.2213593 0.8433058 0.2056041 0.2672733 0.1842261
-    ## D01 0.1458907 0.2055743 0.8645631 0.2934916 0.1787232
-    ## D02 0.2501317 0.2673221 0.2936067 0.8279944 0.3181356
-    ## D03 0.2888898 0.1842702 0.1788194 0.3181398 0.8328737
+    ## EC  0.8279224 0.2396750 0.1601772 0.2690153 0.3102375
+    ## D00 0.2396750 0.8941764 0.2228138 0.2869625 0.1999552
+    ## D01 0.1601772 0.2228138 0.9163289 0.3144958 0.1940882
+    ## D02 0.2690153 0.2869625 0.3144958 0.8762263 0.3399692
+    ## D03 0.3102375 0.1999552 0.1940882 0.3399692 0.8821408
 
 ``` r
 dim(HmatProgeny) # The number of rows and columns should be the number of progeny genotypes (75)
@@ -2039,8 +2121,7 @@ dim(HmatProgeny) # The number of rows and columns should be the number of progen
 
 In order to expedite mGWAS analysis, SNP data was divided by chromosome
 in order to enable parallel analyses in the super computer. This was
-completed for each of the population
-subsets.
+completed for each of the population subsets.
 
 #### Diverse
 
@@ -2050,8 +2131,7 @@ LGLevelsDiverse <- unique(LGDiverse) # make a vector with each of the levels of 
 ```
 
 Create a loop to write a .csv file of SNP data divided by chromosome
-(linkage
-group)
+(linkage group)
 
 ``` r
 for (i in LGLevelsDiverse) { # for every item in the vector of the levels of Linkage Group
@@ -2070,8 +2150,7 @@ LGLevelsPedigree <- unique(LGPedigree) # make a vector with each of the levels o
 ```
 
 Create a loop to write a .csv file of SNP data divided by chromosome
-(linkage
-group)
+(linkage group)
 
 ``` r
 for (i in LGLevelsPedigree) { # for every item in the vector of the levels of Linkage Group
@@ -2090,8 +2169,7 @@ LGLevelsProgeny <- unique(LGProgeny) # make a vector with each of the levels of 
 ```
 
 Create a loop to write a .csv file of SNP data divided by chromosome
-(linkage
-group)
+(linkage group)
 
 ``` r
 for (i in LGLevelsProgeny) { # for every item in the vector of the levels of Linkage Group
